@@ -17,9 +17,11 @@
 }
 
 body {
-    padding: 0;
-    margin: 0;
-    user-select: none;
-    background: #93d973;
+  padding: 0;
+  user-select: none;
 }
 
+canvas {
+  margin: 0 auto;
+  display: block;
+}
