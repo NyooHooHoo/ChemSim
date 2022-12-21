@@ -1,3 +1,11 @@
+:root{
+  --light: #c1d9ce;
+  --blue: #38b0f5;
+  --green: #31f791;
+  --contrast: #5A87BE;
+  --accentred: #755b6b;
+}
+
 ::-webkit-scrollbar {
   width: 10px;
 }
@@ -19,9 +27,53 @@
 body {
   padding: 0;
   user-select: none;
+  background: var(--light);
 }
 
 canvas {
   margin: 0 auto;
   display: block;
+}
+
+.navbar{
+  background-image: linear-gradient(to right, var(--blue), var(--green));
+}
+
+.nav-link{
+  font-size: 16px;
+  margin: 3px;
+  color: #000!important;
+  font-weight: 600;
+  transition: 0.4s;
+  padding: 8px 16px;
+  border-radius: 80px;
+}
+
+.navbar-nav{
+  text-align: right;
+  margin-right: 20px;
+}
+
+.menu-bar .nav-toggler{
+  padding-right: 20px;
+  outline: none!important;
+  border: none!important;
+}
+
+.navbar .fa{
+  color: #fff!important;
+}
+
+.nav-item a.is-active, .nav-item a:hover{
+  background-color: white;
+}
+
+@media only screen and (max-width: 1000px){
+  .nav-item a.is-active, .nav-item a:hover{
+    background-color: transparent;
+  }
+  .nav-link:hover{
+    font-weight: 800px;
+    color: white;
+  }
 }
