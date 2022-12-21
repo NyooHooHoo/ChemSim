@@ -3,6 +3,8 @@
   --black: #314455;
   --dark: #3c423e;
   --contrast: #fcb04c;
+  --blue: #38b0f5;
+  --green: #31f791;
 }
 
 ::-webkit-scrollbar {
@@ -27,34 +29,45 @@ body {
     user-select: none;
     background: var(--light);
 }
-/*
+
+canvas {
+  margin: 0 auto;
+  display: block;
+}
+
 .navbar{
-  padding: 3;
-  font-family: 'Montserrat', sans-serif;
-  background: var(--dark);
+  background-image: linear-gradient(to right, var(--green), var(--blue));
 }
 
-.navbar-toggler:focus{
-  box-shadow: none;
-}
-
-.navbar-nav {
-    margin-left: auto;
-}
-
-.nav-item a{
-  color: white;
+.nav-link{
+  font-size: 16px;
+  margin: 10px;
+  color: #000!important;
   font-weight: 600;
-  text-decoration: none;
   transition: 0.4s;
   padding: 8px 16px;
-  border-radius: 99px;
+  border-radius: 80px;
+}
+
+.navbar-nav{
+  text-align: right;
+  margin-right: 20px;
+}
+
+.menu-bar .nav-toggler{
+  padding-right: 20px;
+  outline: none!important;
+  border: none!important;
+}
+
+.navbar .bx{
+  color: #fff!important;
+  font-size: 40px;
 }
 
 .nav-item a.is-active, .nav-item a:hover{
   background-color: white;
 }
-*/
 
 #neubar {
   background: #fae8d2;
@@ -64,8 +77,7 @@ body {
 .nav-item .active {
   border-radius: 6px;
   background: linear-gradient(145deg, #ffe7ca, #f5d7b2);
-  box-shadow:  4px 4px 8px #ddc1a0,
-               -4px -4px 8px #f7e5cc;
+  box-shadow:  4px 4px 8px #ddc1a0, -4px -4px 8px #f7e5cc;
 }
 #neubar .dropdown-menu a:hover {
   color: #454545
@@ -83,4 +95,27 @@ body {
 }
 a.navbar-brand {
   color: #454545
+}
+
+.navbar-brand img{
+  margin-top: -20%;
+}
+
+.navbar-brand{
+  font-family: bebas-neue;  
+  text-align: center;
+  font-size: 30px;
+  line-height: 80%;
+  padding-top: 5%;
+
+  }
+
+@media only screen and (max-width: 1000px){
+  .nav-item a.is-active, .nav-item a:hover{
+    background-color: transparent;
+  }
+  .nav-link:hover{
+    font-weight: 800px;
+    color: white;
+  }
 }

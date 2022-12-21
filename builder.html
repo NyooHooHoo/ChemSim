@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="styles.css">
+		<title>ChemSim - Molecule Builder</title>
+	</head>
+	<body>
+		<canvas id="builderCanvas" width="1000" height="600" style="border: 1px solid black;"></canvas>
+		<script>
+			myCanvas = document.getElementById("builderCanvas");
+			myContext = myCanvas.getContext("2d");
+			draw(myContext,myCanvas);
+			function draw(ctx,canvas) {
+				ctx.font = "30px Arial";
+				ctx.strokeText("Hello World!"+canvas.width, 10, 50);
+				ctx.fillStyle = "#FF0000";
+				ctx.fillRect(200, 200, 100, 50);
+			}
+		</script>
+	</body>
+</html>
