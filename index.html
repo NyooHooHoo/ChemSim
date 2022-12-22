@@ -3,50 +3,86 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=0.7">
-    <script src="index.js"></script>
 
- 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
+    <style>@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');</style>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.2/font/bootstrap-icons.css">
     <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.1/css/fontawesome.min.css">
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"></script>
-
-    <title>Climate Sim 2</title>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+    <script src="scripts/index.js"></script>
+    <title>ChemSim</title>
 
   </head>
   <body>    
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand" href="#">place image here</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <i class="fa fa-bars"></i>
+
+    <nav class="navbar navbar-expand-md bg">
+      <a href="index.html" class="navbar-brand ms-3">
+        <img class="logo" id = "Logo" src="assets/logo.png" alt = "Logo" height="120" width="150">
+        ChemSim
+      </a>
+
+      <button class="navbar-toggler me-3" type="button" data-bs-toggle="collapse" data-bs-target="#btn">
+        <i class="bx bx-menu bx-md"></i>
       </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="#">Molecule Builder</span></a>
+
+      <div class="collapse navbar-collapse ul-bg" id="btn">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a href="builder.html" class="nav-link mx-3 nav-text">Molecule Builder</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Balancing Equations</a>
+            <a href="#" class="nav-link mx-3 nav-text">Balancing Equations</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Chemical Reactions</a>
+            <a href="#" class="nav-link mx-3 nav-text">Chemical Reactions</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">About</a>
+            <a href="#" class="nav-link mx-3 nav-text">About</a>
           </li>
         </ul>
       </div>
+    
     </nav>
 
-  
+    <div class="content">
+      
+      <div class="intro-text">
+        
+      </div>
 
+      <div class="modules">
+
+        <div class="left"></div>
+        <div class="center"></div>
+        <div class="right"></div>
+
+
+      </div>
+
+      </div>
+
+    </div>
 
     <footer>
+      <div class="footer-content">
+        <a href="#top">
+          <img class="footer-logo" id = "Logo" src="assets/logo.png" alt = "Logo" height="120" width="150">
+        </a>
+
+        <p><span style="color: black;"><strong>One Stop Place for all your grade 10 Science Needs</strong></span> <br> 
+        This is our ISP made to help you with your grade 10 science problems.</p>
+
+        <ul class="socials">
+          <li><a href="https://github.com/Red4Wiz/ChemSim" target=”_blank” ><i class="bi bi-github"></i></a></li>
+
+        </ul>
+      </div>
 
     </footer>
+
   </body>
 </html>
