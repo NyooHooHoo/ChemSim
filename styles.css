@@ -73,8 +73,78 @@ canvas {
   transition: 0.4s;
   padding: 8px 16px;
   border-radius: 99px;
+  right: 50px;
 }
 
 .nav-item a.is-active, .nav-item a:hover{
   background-color: white;
+}
+
+footer {
+  background: linear-gradient(0deg, var(--blue), var(--green));
+  height: auto;
+  width: 100%;
+  font-family: 'Montserrat', sans-serif;
+  padding: 10px;
+}
+
+.footer-content{
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: white;
+}
+
+.footer-content p{
+  max-width: 80%;
+  margin: 10px auto;
+  font-size: 14px;
+}
+
+.socials{
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.socials li{
+  margin-left: -30px;
+  font-size: 40px;
+}
+
+.socials a{
+  text-decoration: none;
+  color: var(--red);
+}
+
+.socials a i{
+  font-size: 1.7rem;
+  color: black;
+}
+
+.socials a:hover i{
+  color: grey;
+  transition: .4s ease;
+}
+
+.modules{
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+}
+
+.modules div{
+  width: 20%;
+  height: 400px;
+  background: red;
+  border-radius: 10px;
+}
+
+.left{
+  margin-left: 15%;
+}
+
+.right{
+  margin-right: 15%;
 }
