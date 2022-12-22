@@ -128,23 +128,56 @@ footer {
   transition: .4s ease;
 }
 
+/*
 .modules{
   display: flex;
   justify-content: space-between;
   padding: 10px;
+  background: red;
+
 }
 
 .modules div{
   width: 20%;
   height: 400px;
-  background: red;
+  background: green;
   border-radius: 10px;
+
 }
 
 .left{
-  margin-left: 15%;
+  margin-left: 10%;
 }
 
 .right{
-  margin-right: 15%;
+  margin-right: 10%;
 }
+
+*/
+
+.module-list{
+  height:500px;
+  display: grid;
+  grid-template-columns: auto auto auto;
+  gap: 2%;
+  padding: 2% 10% 2% 10%;
+  background-color: #2196F3;
+}
+
+.module{
+  display: grid;
+  grid-template-rows: 2fr 1fr;
+  background-color: rgba(255, 255, 255, 0.8);
+  text-align: center;
+  font-size: 30px;
+  border-radius: 25px;
+}
+
+.module-text {
+  padding: 1%;
+}
+
+.module-image {
+  border-radius: 25px 25px 0px 0px;
+}
+
