@@ -43,6 +43,7 @@ canvas {
   margin: auto;
   display: block;
   margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 .logo{
@@ -120,11 +121,11 @@ footer {
 
 .socials a i{
   font-size: 1.7rem;
-  color: black;
+  color: #4a4a4a;
 }
 
 .socials a:hover i{
-  color: grey;
+  color: black;
   transition: .4s ease;
 }
 
