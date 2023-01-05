@@ -126,7 +126,7 @@ footer {
 
 
 .module-list{
-  height:500px;
+  height:80%;
   display: grid;
   grid-template-columns: auto auto auto;
   gap: 2%;
@@ -136,6 +136,7 @@ footer {
 
 .module{
   display: grid;
+  width: 23vw;
   grid-template-rows: 2fr 1fr;
   background-color: rgba(255, 255, 255, 0.8);
   text-align: center;
@@ -144,21 +145,42 @@ footer {
 }
 
 .module-text {
-  padding: 1%;
 }
 
-.module-image {
+.module-image img{
+  width: 23vw;
+  height: 90%;
   border-radius: 25px 25px 0px 0px;
 }
 
 
+.main-container {
+  margin: auto;
+  padding: 5%;
+}
+
 .intro-text{
   font-family: 'ChemFont';
   text-align: center;
-  font-size: 10vw;
+  font-size: 8vw;
   line-height: 80%;
   padding: 5%;
+  margin-left: 20%;
+  margin-right: 20%;
+  border-radius: 5vw;
+  width: auto;
+
   background: var(--green);
-  margin: 10%;
-  border-radius: 10px;
+  color: yellow;
+}
+
+.module:hover{
+  width: 23vw;
+  height: 105%;
+  background: grey;
+  transition: .4s ease;
+}
+
+@media(max-width:768px){
+
 }
