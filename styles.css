@@ -1,10 +1,6 @@
 @font-face {
-  font-family: bebas-neue;
-  src: url('../assets/fonts/BebasNeue-Regular.ttf') format("truetype"),
-     url('../assets/fonts/BebasNeue-Regular.otf') format("opentype"),
-     url('../assets/fonts/BebasNeue-Regular.eot') format("embedded-opentype"),
-     url('../assets/fonts/BebasNeue-Regular.woff') format("woff"),
-     url('../assets/fonts/BebasNeue-Regular.woff2') format("woff2");
+  font-family: 'ChemFont';
+  src: url(fonts/ChemFont.ttf);
 }
 
 :root{
@@ -35,7 +31,6 @@
 }
 
 body {
-    user-select: none;
     background: var(--light);
 }
 
@@ -129,32 +124,6 @@ footer {
   transition: .4s ease;
 }
 
-/*
-.modules{
-  display: flex;
-  justify-content: space-between;
-  padding: 10px;
-  background: red;
-
-}
-
-.modules div{
-  width: 20%;
-  height: 400px;
-  background: green;
-  border-radius: 10px;
-
-}
-
-.left{
-  margin-left: 10%;
-}
-
-.right{
-  margin-right: 10%;
-}
-
-*/
 
 .module-list{
   height:500px;
@@ -182,3 +151,14 @@ footer {
   border-radius: 25px 25px 0px 0px;
 }
 
+
+.intro-text{
+  font-family: 'ChemFont';
+  text-align: center;
+  font-size: 10vw;
+  line-height: 80%;
+  padding: 5%;
+  background: var(--green);
+  margin: 10%;
+  border-radius: 10px;
+}
