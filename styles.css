@@ -176,7 +176,6 @@ footer {
 
 .module:hover{
   width: 23vw;
-  height: 105%;
   background: grey;
   transition: .4s ease;
 }
