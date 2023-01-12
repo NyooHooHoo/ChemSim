@@ -1,32 +1,47 @@
-// myCanvas = document.getElementById("builderCanvas");
-// myContext = myCanvas.getContext("2d");
-// function draw(ctx,canvas) {
-// 	ctx.fillstyle = "green"
-// 	ctx.arc(10,10,10,0, Math.PI*2)
-// 	ctx.fill()
-// }
-// draw(myContext,myCanvas);
+var canvas = document.getElementById("builderCanvas");
+var ctx = canvas.getContext("2d");
+var width = canvas.width;
+var height = canvas.height;
+let intervalID;
+var mousePos;
 
-var myCanvas = document.getElementById("builderCanvas");
-var myCtx = myCanvas.getContext("2d");
+ctx.fillStyle = "white";
+ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-// report the mouse position on click
-myCanvas.addEventListener("mousedown", function (evt) {
-    var mousePos = getMousePos(myCanvas, evt);
-    let intervalID = setInterval(draw, 10);
+canvas.addEventListener("mousedown", function (evt) {
+    mousePos = getMousePos(canvas, evt);
+    intervalID = setInterval(draw, 10);
 }, false);
 
-myCanvas.addEventListener("mouseup", function () {clearInterval(intervalID)}, false);
+canvas.addEventListener("mousemove", function (evt) {
+    mousePos = getMousePos(canvas, evt);
+}, false);
 
-function draw() {
-    myCtx.fillStyle = "black";
-    myCtx.arc(mousePos.x, mousePos.y, 10, Math.PI*2);
-    myCtx.fill();
+canvas.addEventListener("mouseup", function () {
+	clearInterval(intervalID)
+	background()
+}, false);
+
+canvas.addEventListener("mouseleave", function () {
+	clearInterval(intervalID)
+	background()
+}, false);
+
+function background() {
+	ctx.beginPath();
+	ctx.fillStyle = "white";
+	ctx.fillRect(0, 0, canvas.width, canvas.height);
 }
 
-// Get Mouse Position
+function draw() {
+	background()	
+    ctx.fillStyle = "black";
+    ctx.arc(mousePos.x, mousePos.y, 10, 0, Math.PI*2);
+    ctx.fill();
+}
+
 function getMousePos(canvas, evt) {
-    var rect = myCanvas.getBoundingClientRect();
+    var rect = canvas.getBoundingClientRect();
     return {
         x: evt.clientX - rect.left,
         y: evt.clientY - rect.top
