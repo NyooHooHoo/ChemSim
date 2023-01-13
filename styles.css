@@ -117,11 +117,12 @@ footer {
 .socials a i{
   font-size: 1.7rem;
   color: #4a4a4a;
+  transition: .6s ease;
 }
 
 .socials a:hover i{
   color: black;
-  transition: .4s ease;
+  transition: .6s ease;
 }
 
 
@@ -131,7 +132,7 @@ footer {
   grid-template-columns: auto auto auto;
   gap: 2%;
   padding: 2% 10% 2% 10%;
-  background-color: #2196F3;
+  background-color: var(--green);
 }
 
 .module{
@@ -182,8 +183,4 @@ footer {
 
 @media(max-width:768px){
 
-}
-
-canvas {
-  border: 1px solid black;
 }

@@ -5,39 +5,52 @@ var height = canvas.height;
 let intervalID;
 var mousePos;
 
-ctx.fillStyle = "white";
-ctx.fillRect(0, 0, canvas.width, canvas.height);
+background();
 
 canvas.addEventListener("mousedown", function (evt) {
     mousePos = getMousePos(canvas, evt);
     intervalID = setInterval(draw, 10);
-}, false);
+});
 
 canvas.addEventListener("mousemove", function (evt) {
     mousePos = getMousePos(canvas, evt);
-}, false);
+});
 
 canvas.addEventListener("mouseup", function () {
-	clearInterval(intervalID)
-	background()
-}, false);
+	clearInterval(intervalID);
+	background();
+});
 
 canvas.addEventListener("mouseleave", function () {
-	clearInterval(intervalID)
-	background()
-}, false);
+	clearInterval(intervalID);
+	background();
+});
 
 function background() {
 	ctx.beginPath();
 	ctx.fillStyle = "white";
 	ctx.fillRect(0, 0, canvas.width, canvas.height);
+	menus();
+}
+
+function menus() {
+	ctx.beginPath();
+	ctx.fillStyle = "#31f791";
+	ctx.fillRect(0,0,1000,60);
+	ctx.fillRect(0,540,1000,600);
+	ctx.fillRect(0,0,20,600);
+	ctx.fillRect(980,0,1000,600);
 }
 
 function draw() {
-	background()	
+	background();
     ctx.fillStyle = "black";
     ctx.arc(mousePos.x, mousePos.y, 10, 0, Math.PI*2);
     ctx.fill();
+}
+
+function isInside(pos, rect){
+    return pos.x > rect.x && pos.x < rect.x+rect.width && pos.y < rect.y+rect.height && pos.y > rect.y;
 }
 
 function getMousePos(canvas, evt) {
