@@ -184,3 +184,8 @@ footer {
 @media(max-width:768px){
 
 }
+
+
+canvas {
+  border: 1px solid black;
+}
