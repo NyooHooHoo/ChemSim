@@ -132,6 +132,8 @@ var iCombustion = {
 function draw(){
     if(frameCnt == 0){
         ctx.drawImage(bg1, 0, 0);
+        ctx.fillStyle = "rgb(255, 255, 255, 0.4)";
+        ctx.fillRect(0,0,width,height)
 
         ctx.font = "80px Comic Sans MS";
         ctx.fillStyle = "red";
