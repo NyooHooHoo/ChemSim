@@ -3,6 +3,11 @@
   src: url(fonts/ChemFont.ttf);
 }
 
+@font-face {
+  font-family: 'ChalkFont';
+  src: url(fonts/ChalkFont.ttf);
+}
+
 :root{
   --light: #f7faf9;
   --black: #314455;
