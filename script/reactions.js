@@ -13,7 +13,6 @@ var iComCol = "white";
 
 
 var sceneNo = 0;
-
 const intervalID = setInterval(draw, 10);         
 
 var bg1 = new Image();
@@ -35,42 +34,43 @@ function getMousePos(canvas, event) {
 canvas.addEventListener('mousemove', function(evt) {
     var mousePos = getMousePos(canvas, evt);
 
-    if(isInside(mousePos, synthesis)){
-        synCol = "rgb(217, 219, 218)";
-    }else{
-        synCol = "white";
-    }
+    if(sceneNo == 0){
+        if(isInside(mousePos, synthesis)){
+            synCol = "rgb(217, 219, 218)";
+        }else{
+            synCol = "white";
+        }
 
-    if(isInside(mousePos, decomposition)){
-        decCol = "rgb(217, 219, 218)";
-    }else{
-        decCol = "white";
-    }
+        if(isInside(mousePos, decomposition)){
+            decCol = "rgb(217, 219, 218)";
+        }else{
+            decCol = "white";
+        }
 
-    if(isInside(mousePos, sDisplace)){
-        sDisCol = "rgb(217, 219, 218)";
-    }else{
-        sDisCol = "white";
-    }
+        if(isInside(mousePos, sDisplace)){
+            sDisCol = "rgb(217, 219, 218)";
+        }else{
+            sDisCol = "white";
+        }
 
-    if(isInside(mousePos, dDisplace)){
-        dDisCol = "rgb(217, 219, 218)";
-    }else{
-        dDisCol = "white";
-    }
+        if(isInside(mousePos, dDisplace)){
+            dDisCol = "rgb(217, 219, 218)";
+        }else{
+            dDisCol = "white";
+        }
 
-    if(isInside(mousePos, cCombustion)){
-        cComCol = "rgb(217, 219, 218)";
-    }else{
-        cComCol = "white";
-    }
+        if(isInside(mousePos, cCombustion)){
+            cComCol = "rgb(217, 219, 218)";
+        }else{
+            cComCol = "white";
+        }
 
-    if(isInside(mousePos, iCombustion)){
-        iComCol = "rgb(217, 219, 218)";
-    }else{
-        iComCol = "white";
+        if(isInside(mousePos, iCombustion)){
+            iComCol = "rgb(217, 219, 218)";
+        }else{
+            iComCol = "white";
+        }
     }
-
 
 
 }, false);
@@ -155,13 +155,92 @@ var iCombustion = {
     height:125
 };
 
+function drawBox(rect, col, name1, name2, type){
+    ctx.fillStyle = col;
+    ctx.roundRect(rect.x,rect.y,rect.width,rect.height,10);
+    ctx.fill();
+    ctx.beginPath();
+
+    if(type == 1){
+        ctx.fillStyle = "black";
+        ctx.fillText(name1, rect.x+(rect.width/2), rect.y+(rect.height/2), rect.width);
+    }
+    else{
+        ctx.fillStyle = "black";
+        ctx.fillText(name1, rect.x+(rect.width/2), rect.y+(rect.height/4)+10, rect.width);
+        ctx.fillText(name2, rect.x+(rect.width/2), rect.y+(rect.height/4*3)-10, rect.width);
+    }
+    ctx.closePath();
+
+}
+
+function drawBg(img){
+    ctx.drawImage(img, 0, 0);
+    ctx.fillStyle = "rgb(255, 255, 255, 0.6)";
+    ctx.fillRect(0,0,width,height);
+}
+
+function drawArrow(){
+    ctx.fillStyle = "red";
+    ctx.fillRect(75, 50, 75, 25);
+    //ctx.moveTo(75, 30);
+    //ctx.lineTo(75, 95);
+    //ctx.lineTo(30, 62);
+
+}
 
 
+class Molecule{
+    constructor(x, y, radius, name){
+        this.x = x;
+        this.y = y;
+        this.radius = radius;
+        this.color = "white";
+        this.speed = 1;
+        this.name = name;
+    }
+
+    draw(){
+        //ctx.beginPath();
+        ctx.fillStyle = "white";
+        ctx.arc(this.x, this.y, this.radius, 0, 2 * Math.PI);
+        ctx.fill();
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.fillStyle = "black";
+        ctx.font = "38px serif";
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        ctx.fillText(this.name, this.x, this.y);
+
+    }
+
+    upadte(){
+        this.draw();
+        this.x += this.speed;
+        this.y += this.speed;
+    }
+}
+
+
+var circle = {
+    centerX:250, 
+    centerY:250, 
+    radius:125, 
+    angle:0
+}
+
+
+let updateMol = function(){
+    requestAnimationFrame(updateMol);
+    Molecule.update();
+}
+
+var x = 0, y = 300;
 function draw(){
     if(sceneNo == 0){
-        ctx.drawImage(bg1, 0, 0);
-        ctx.fillStyle = "rgb(255, 255, 255, 0.6)";
-        ctx.fillRect(0,0,width,height);
+        drawBg(bg1);
 
         ctx.font = "80px Comic Sans MS";
         ctx.fillStyle = "black";
@@ -171,95 +250,59 @@ function draw(){
         ctx.font = "38px serif";
         ctx.textAlign = "center";
         ctx.textBaseline = "middle";
+
         //drawing the buttons to move to different animation
-        ctx.fillStyle = synCol;
-        ctx.roundRect(synthesis.x,synthesis.y,synthesis.width,synthesis.height,10);
-        ctx.fill();
-        ctx.beginPath();
-
-        ctx.fillStyle = "rgb(0,0,0)";
-        ctx.fillText("Synthesis", synthesis.x+(synthesis.width/2), synthesis.y+(synthesis.height/2), synthesis.width);
-
-        ctx.fillStyle = decCol;
-        ctx.roundRect(decomposition.x,decomposition.y,decomposition.width,decomposition.height,10);
-        ctx.fill();
-        ctx.beginPath();
-
-        ctx.fillStyle = "rgb(0,0,0)";
-        ctx.fillText("Decomposition", decomposition.x+(decomposition.width/2), decomposition.y+(decomposition.height/2), decomposition.width);
-
-        ctx.fillStyle = sDisCol;
-        ctx.roundRect(sDisplace.x,sDisplace.y,sDisplace.width,sDisplace.height,10);
-        ctx.fill();
-        ctx.beginPath();
-
-        ctx.fillStyle = "rgb(0,0,0)";
-        ctx.fillText("Single", sDisplace.x+(sDisplace.width/2), sDisplace.y+(sDisplace.height/4)+10, sDisplace.width);
-        ctx.fillText("Displacement", sDisplace.x+(sDisplace.width/2), sDisplace.y+(sDisplace.height/4*3)-10, sDisplace.width);
-
-        ctx.fillStyle = dDisCol;
-        ctx.roundRect(dDisplace.x,dDisplace.y,dDisplace.width,dDisplace.height,10);
-        ctx.fill();
-        ctx.beginPath();
+        drawBox(synthesis, synCol, "Synthesis", "", 1);
+        drawBox(decomposition, decCol, "Decomposition", "", 1)
+        drawBox(sDisplace, sDisCol, "Single", "Displacement", 2);
+        drawBox(dDisplace, dDisCol, "Double", "Displacement", 2);
+        drawBox(cCombustion, cComCol, "Complete", "Combustion", 2);
+        drawBox(iCombustion, iComCol, "Incomplete", "Combustion", 2);
 
 
-        ctx.fillStyle = "rgb(0,0,0)";
-        ctx.fillText("Double", dDisplace.x+(dDisplace.width/2), dDisplace.y+(dDisplace.height/4)+10, dDisplace.width);
-        ctx.fillText("Displacement", dDisplace.x+(dDisplace.width/2), dDisplace.y+(dDisplace.height/4*3)-10, dDisplace.width);
-
-        ctx.fillStyle = cComCol;
-        ctx.roundRect(cCombustion.x,cCombustion.y,cCombustion.width,cCombustion.height,10);
-        ctx.fill();
-        ctx.beginPath();
-
-        ctx.fillStyle = "rgb(0,0,0)";
-        ctx.fillText("Complete", cCombustion.x+(cCombustion.width/2), cCombustion.y+(cCombustion.height/4)+10, cCombustion.width);
-        ctx.fillText("Combustion", cCombustion.x+(cCombustion.width/2), cCombustion.y+(cCombustion.height/4*3)-10, cCombustion.width);
-
-        ctx.fillStyle = iComCol;
-        ctx.roundRect(iCombustion.x,iCombustion.y,iCombustion.width,iCombustion.height,10);
-        ctx.fill();
-        ctx.beginPath();
-
-        ctx.fillStyle = "rgb(0,0,0)";
-        ctx.fillText("Incomplete", iCombustion.x+(iCombustion.width/2), iCombustion.y+(iCombustion.height/4)+10, iCombustion.width);
-        ctx.fillText("Combustion", iCombustion.x+(iCombustion.width/2), iCombustion.y+(iCombustion.height/4*3)-10, iCombustion.width);
     }
     else if(sceneNo == 1){
-        ctx.drawImage(bg2, 0, 0);
-        ctx.fillStyle = "rgb(255, 255, 255, 0.2)";
-        ctx.fillRect(0,0,width,height);
+        drawBg(bg2);
+
+        drawArrow();
+
+        ctx.font = "60px ChalkFont";
+        ctx.fillStyle = "black";
+        ctx.textAlign = "center";
+        ctx.fillText("Synthesis Reaction", canvas.width/2, 75);
+
+
+        let hydrogen1 = new Molecule(200, 350, 50, "H");
+        hydrogen1.draw();
+        let hydrogen2 = new Molecule(200, 425, 50, "H");
+        hydrogen2.draw();
+
+        let chlorine1 = new Molecule(400, 350, 50, "Cl");
+        chlorine1.draw();
+        let chlorine2 = new Molecule(400, 425, 50, "Cl");
+        chlorine2.draw();
+
+        updateMol();
+
     }
     else if(sceneNo == 2){
-        ctx.drawImage(bg2, 0, 0);
-        ctx.fillStyle = "rgb(255, 255, 255, 0.2)";
-        ctx.fillRect(0,0,width,height);
+        drawBg(bg2);
     }
     else if(sceneNo == 3){
-        ctx.drawImage(bg2, 0, 0);
-        ctx.fillStyle = "rgb(255, 255, 255, 0.2)";
-        ctx.fillRect(0,0,width,height);
+        drawBg(bg2);
     }
     else if(sceneNo == 4){
-        ctx.drawImage(bg2, 0, 0);
-        ctx.fillStyle = "rgb(255, 255, 255, 0.2)";
-        ctx.fillRect(0,0,width,height);
+        drawBg(bg2);
         
     }
     else if(sceneNo == 5){
-        ctx.drawImage(bg2, 0, 0);
-        ctx.fillStyle = "rgb(255, 255, 255, 0.2)";
-        ctx.fillRect(0,0,width,height);
+        drawBg(bg2);
 
     }
     else if(sceneNo == 6){
-        ctx.drawImage(bg2, 0, 0);
-        ctx.fillStyle = "rgb(255, 255, 255, 0.2)";
-        ctx.fillRect(0,0,width,height);
+        drawBg(bg2);
 
     }
 
 }
-
-draw();
 
