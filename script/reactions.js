@@ -12,14 +12,25 @@ var cComCol = "white";
 var iComCol = "white";
 
 
-var sceneNo = 0;
-const intervalID = setInterval(draw, 10);         
+var sceneNo = 1;
+
+var animate1 = false;
 
 var bg1 = new Image();
 bg1.src = "assets/chemBG.png";
 
 var bg2 = new Image();
 bg2.src = "assets/labBG.jpg";
+
+var play = new Image();
+play.src = "assets/play.png"
+
+var back = new Image();
+back.src = "assets/backarrow.png"
+
+var pause = new Image();
+pause.src = "assets/pause.png"
+
 
 //returns the mouse position
 function getMousePos(canvas, event) {
@@ -103,6 +114,39 @@ canvas.addEventListener('mousedown', function(evt) {
             sceneNo = 6;
         }
     }
+    else if(sceneNo == 1){
+        if(isInside(mousePos, backButton)){
+            sceneNo = 0;
+        }
+        if(isInside(mousePos, playButton) && animate1 == false){
+            animate1 = true;
+        }
+        else if(isInside(mousePos, playButton) && animate1 == true){
+            animate1 = false;
+        }
+    }
+    else if(sceneNo == 2){
+        if(isInside(mousePos, backButton)){
+            sceneNo = 0;
+        }
+        if(isInside(mousePos, playButton) && animate1 == false){
+            animate1 = true;
+        }
+        else if(isInside(mousePos, playButton) && animate1 == true){
+            animate1 = false;
+        }
+    }
+    else if(sceneNo == 3){
+        if(isInside(mousePos, backButton)){
+            sceneNo = 0;
+        }
+        if(isInside(mousePos, playButton) && animate1 == false){
+            animate1 = true;
+        }
+        else if(isInside(mousePos, playButton) && animate1 == true){
+            animate1 = false;
+        }
+    }
 
 }, false);
 
@@ -111,6 +155,20 @@ function isInside(pos, rect){
     return pos.x > rect.x && pos.x < rect.x+rect.width && pos.y < rect.y+rect.height && pos.y > rect.y
 }
 
+
+var playButton = {
+    x:1050,
+    y:25,
+    width:100,
+    height:100
+};
+
+var backButton = {
+    x:50,
+    y:25,
+    width:100,
+    height:100
+};
 
 //6 objects to hold the 6 different animations
 var synthesis = {
@@ -174,19 +232,25 @@ function drawBox(rect, col, name1, name2, type){
 
 }
 
-function drawBg(img){
-    ctx.drawImage(img, 0, 0);
+function drawBg(){
+    ctx.drawImage(bg1, 0, 0);
     ctx.fillStyle = "rgb(255, 255, 255, 0.6)";
     ctx.fillRect(0,0,width,height);
 }
 
-function drawArrow(){
-    ctx.fillStyle = "red";
-    ctx.fillRect(75, 50, 75, 25);
-    //ctx.moveTo(75, 30);
-    //ctx.lineTo(75, 95);
-    //ctx.lineTo(30, 62);
+function drawSim(animate){
+    ctx.drawImage(bg2, 0, 0);
+    ctx.fillStyle = "rgb(255, 255, 255, 0.6)";
+    ctx.fillRect(0,0,width,height);
 
+    if(animate){
+        ctx.drawImage(pause, playButton.x, playButton.y);
+    }
+    else{
+        ctx.drawImage(play, playButton.x, playButton.y);
+    }
+    
+    ctx.drawImage(back, backButton.x, backButton.y);
 }
 
 
@@ -196,7 +260,7 @@ class Molecule{
         this.y = y;
         this.radius = radius;
         this.color = "white";
-        this.speed = 1;
+        this.speed = 3;
         this.name = name;
     }
 
@@ -216,10 +280,10 @@ class Molecule{
 
     }
 
-    upadte(){
+    update(){
         this.draw();
         this.x += this.speed;
-        this.y += this.speed;
+        
     }
 }
 
@@ -232,13 +296,15 @@ var circle = {
 }
 
 
-let updateMol = function(){
-    requestAnimationFrame(updateMol);
-    Molecule.update();
-}
 
-var x = 0, y = 300;
-function draw(){
+//Synthesis Objects
+let hydrogen1 = new Molecule(200, 350, 50, "H");
+let hydrogen2 = new Molecule(200, 425, 50, "H");
+let chlorine1 = new Molecule(400, 350, 50, "Cl");
+
+function animate(){
+    window.requestAnimationFrame(animate);
+
     if(sceneNo == 0){
         drawBg(bg1);
 
@@ -263,33 +329,38 @@ function draw(){
     }
     else if(sceneNo == 1){
         drawBg(bg2);
-
-        drawArrow();
+        ctx.fillStyle = "black";
+        drawSim(animate1);
 
         ctx.font = "60px ChalkFont";
         ctx.fillStyle = "black";
         ctx.textAlign = "center";
         ctx.fillText("Synthesis Reaction", canvas.width/2, 75);
-
-
-        let hydrogen1 = new Molecule(200, 350, 50, "H");
         hydrogen1.draw();
-        let hydrogen2 = new Molecule(200, 425, 50, "H");
-        hydrogen2.draw();
+        hydrogen2.draw();   
 
-        let chlorine1 = new Molecule(400, 350, 50, "Cl");
+        if(animate1){
+            hydrogen1.update();
+            hydrogen2.update();
+        }   
+
         chlorine1.draw();
         let chlorine2 = new Molecule(400, 425, 50, "Cl");
         chlorine2.draw();
 
-        updateMol();
+        if(hydrogen1.x > width){
+            hydrogen1.x = 0;
+            hydrogen2.x = 0;
+        }
+
+        //updateMol();
 
     }
     else if(sceneNo == 2){
-        drawBg(bg2);
+        drawSim(animate1);
     }
     else if(sceneNo == 3){
-        drawBg(bg2);
+        drawSim(animate1);
     }
     else if(sceneNo == 4){
         drawBg(bg2);
@@ -306,3 +377,4 @@ function draw(){
 
 }
 
+animate();
