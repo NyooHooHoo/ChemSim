@@ -13,7 +13,6 @@ var iComCol = "white";
 
 
 var sceneNo = 0;
-
 const intervalID = setInterval(draw, 10);         
 
 var bg1 = new Image();
@@ -163,14 +162,15 @@ function drawBox(rect, col, name1, name2, type){
     ctx.beginPath();
 
     if(type == 1){
-        ctx.fillStyle = "rgb(0,0,0)";
+        ctx.fillStyle = "black";
         ctx.fillText(name1, rect.x+(rect.width/2), rect.y+(rect.height/2), rect.width);
     }
     else{
-        ctx.fillStyle = "rgb(0,0,0)";
+        ctx.fillStyle = "black";
         ctx.fillText(name1, rect.x+(rect.width/2), rect.y+(rect.height/4)+10, rect.width);
         ctx.fillText(name2, rect.x+(rect.width/2), rect.y+(rect.height/4*3)-10, rect.width);
     }
+    ctx.closePath();
 
 }
 
@@ -180,7 +180,64 @@ function drawBg(img){
     ctx.fillRect(0,0,width,height);
 }
 
+function drawArrow(){
+    ctx.fillStyle = "red";
+    ctx.fillRect(75, 50, 75, 25);
+    //ctx.moveTo(75, 30);
+    //ctx.lineTo(75, 95);
+    //ctx.lineTo(30, 62);
 
+}
+
+
+class Molecule{
+    constructor(x, y, radius, name){
+        this.x = x;
+        this.y = y;
+        this.radius = radius;
+        this.color = "white";
+        this.speed = 1;
+        this.name = name;
+    }
+
+    draw(){
+        //ctx.beginPath();
+        ctx.fillStyle = "white";
+        ctx.arc(this.x, this.y, this.radius, 0, 2 * Math.PI);
+        ctx.fill();
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.fillStyle = "black";
+        ctx.font = "38px serif";
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        ctx.fillText(this.name, this.x, this.y);
+
+    }
+
+    upadte(){
+        this.draw();
+        this.x += this.speed;
+        this.y += this.speed;
+    }
+}
+
+
+var circle = {
+    centerX:250, 
+    centerY:250, 
+    radius:125, 
+    angle:0
+}
+
+
+let updateMol = function(){
+    requestAnimationFrame(updateMol);
+    Molecule.update();
+}
+
+var x = 0, y = 300;
 function draw(){
     if(sceneNo == 0){
         drawBg(bg1);
@@ -201,15 +258,31 @@ function draw(){
         drawBox(dDisplace, dDisCol, "Double", "Displacement", 2);
         drawBox(cCombustion, cComCol, "Complete", "Combustion", 2);
         drawBox(iCombustion, iComCol, "Incomplete", "Combustion", 2);
+
+
     }
     else if(sceneNo == 1){
         drawBg(bg2);
+
+        drawArrow();
 
         ctx.font = "60px ChalkFont";
         ctx.fillStyle = "black";
         ctx.textAlign = "center";
         ctx.fillText("Synthesis Reaction", canvas.width/2, 75);
 
+
+        let hydrogen1 = new Molecule(200, 350, 50, "H");
+        hydrogen1.draw();
+        let hydrogen2 = new Molecule(200, 425, 50, "H");
+        hydrogen2.draw();
+
+        let chlorine1 = new Molecule(400, 350, 50, "Cl");
+        chlorine1.draw();
+        let chlorine2 = new Molecule(400, 425, 50, "Cl");
+        chlorine2.draw();
+
+        updateMol();
 
     }
     else if(sceneNo == 2){
