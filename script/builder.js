@@ -1,30 +1,40 @@
-var canvas = document.getElementById("builderCanvas");
+var canvas = document.getElementById("builder-canvas");
 var ctx = canvas.getContext("2d");
 var width = canvas.width;
 var height = canvas.height;
 let intervalID;
 var mousePos;
 
+let space = {
+	x: 20,
+	y: 60,
+	width: 960,
+	height: 480
+}
+
 background();
 
-canvas.addEventListener("mousedown", function (evt) {
-    mousePos = getMousePos(canvas, evt);
-    intervalID = setInterval(draw, 10);
-});
+// canvas.addEventListener("mousedown", function (evt) {
+//     mousePos = getMousePos(canvas, evt);
+//     if (isInside(mousePos, space))
+//     	intervalID = setInterval(draw, 10);
+// });
 
 canvas.addEventListener("mousemove", function (evt) {
     mousePos = getMousePos(canvas, evt);
+    if (isInside(mousePos, space)) {
+    	if (intervalID != 10) intervalID = setInterval(draw, 10);
+    }
+    else {
+		clearInterval(intervalID);
+		background();
+    }
 });
 
-canvas.addEventListener("mouseup", function () {
-	clearInterval(intervalID);
-	background();
-});
-
-canvas.addEventListener("mouseleave", function () {
-	clearInterval(intervalID);
-	background();
-});
+// canvas.addEventListener("mouseup", function () {
+// 	clearInterval(intervalID);
+// 	background();
+// });
 
 function background() {
 	ctx.beginPath();
