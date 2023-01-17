@@ -16,6 +16,7 @@ var sceneNo = 1;
 
 var animate1 = false;
 
+//initializing all images
 var bg1 = new Image();
 bg1.src = "assets/chemBG.png";
 
@@ -31,6 +32,8 @@ back.src = "assets/backarrow.png"
 var pause = new Image();
 pause.src = "assets/pause.png"
 
+var plus = new Image();
+plus.src = "assets/plus.png"
 
 //returns the mouse position
 function getMousePos(canvas, event) {
@@ -92,6 +95,25 @@ canvas.addEventListener('mousedown', function(evt) {
     if(sceneNo == 0){
         if(isInside(mousePos, synthesis)){
             sceneNo = 1;
+            animate1 = false;
+            //resetting circle locations
+            hydrogen1.x = 200;
+            hydrogen1.y = 350;
+            hydrogen2.x = 200;
+            hydrogen2.y = 410;
+            chlorine1.x = 400;
+            chlorine1.y = 350;
+            chlorine2.x = 400;
+            chlorine2.y = 410;
+            hydrogen1Copy.x = 200;
+            hydrogen1Copy.y = 350;
+            hydrogen2Copy.x = 200;
+            hydrogen2Copy.y = 410;
+            chlorine1Copy.x = 400;
+            chlorine1Copy.y = 350;
+            chlorine2Copy.x = 400;
+            chlorine2Copy.y = 410;
+
         }
 
         else if(isInside(mousePos, decomposition)){
@@ -115,6 +137,7 @@ canvas.addEventListener('mousedown', function(evt) {
         }
     }
     else if(sceneNo == 1){
+
         if(isInside(mousePos, backButton)){
             sceneNo = 0;
         }
@@ -255,18 +278,19 @@ function drawSim(animate){
 
 
 class Molecule{
-    constructor(x, y, radius, name){
+    constructor(x, y, radius, name, color){
         this.x = x;
         this.y = y;
         this.radius = radius;
         this.color = "white";
         this.speed = 3;
         this.name = name;
+        this.col = color;
     }
 
     draw(){
         //ctx.beginPath();
-        ctx.fillStyle = "white";
+        ctx.fillStyle = this.col;
         ctx.arc(this.x, this.y, this.radius, 0, 2 * Math.PI);
         ctx.fill();
         ctx.stroke();
@@ -280,10 +304,21 @@ class Molecule{
 
     }
 
-    update(){
+    moveUp(){
+        this.draw();
+        this.y -= this.speed;        
+    }
+    moveDown(){
+        this.draw();
+        this.y+=this.speed;
+    }
+    moveRight(){
         this.draw();
         this.x += this.speed;
-        
+    }
+    moveLeft(){
+        this.draw();
+        this.x -= this.speed; 
     }
 }
 
@@ -298,15 +333,21 @@ var circle = {
 
 
 //Synthesis Objects
-let hydrogen1 = new Molecule(200, 350, 50, "H");
-let hydrogen2 = new Molecule(200, 425, 50, "H");
-let chlorine1 = new Molecule(400, 350, 50, "Cl");
+let hydrogen1 = new Molecule(200, 350, 30, "H", "green");
+let hydrogen2 = new Molecule(200, 410, 30, "H", "green");
+let chlorine1 = new Molecule(400, 350, 30, "Cl", "blue");
+let chlorine2 = new Molecule(400, 410, 30, "Cl", "blue");
+
+let hydrogen1Copy = new Molecule(200, 350, 30, "H", "green");
+let hydrogen2Copy = new Molecule(200, 410, 30, "H", "green");
+let chlorine1Copy = new Molecule(400, 350, 30, "Cl", "blue");
+let chlorine2Copy = new Molecule(400, 410, 30, "Cl", "blue");
 
 function animate(){
     window.requestAnimationFrame(animate);
 
     if(sceneNo == 0){
-        drawBg(bg1);
+        drawBg();
 
         ctx.font = "80px Comic Sans MS";
         ctx.fillStyle = "black";
@@ -328,32 +369,91 @@ function animate(){
 
     }
     else if(sceneNo == 1){
-        drawBg(bg2);
         ctx.fillStyle = "black";
         drawSim(animate1);
+
+        ctx.drawImage(plus, 275, 350)
 
         ctx.font = "60px ChalkFont";
         ctx.fillStyle = "black";
         ctx.textAlign = "center";
         ctx.fillText("Synthesis Reaction", canvas.width/2, 75);
-        hydrogen1.draw();
-        hydrogen2.draw();   
+          
 
         if(animate1){
-            hydrogen1.update();
-            hydrogen2.update();
-        }   
 
-        chlorine1.draw();
-        let chlorine2 = new Molecule(400, 425, 50, "Cl");
-        chlorine2.draw();
+            if(hydrogen1Copy.x == 800 && hydrogen1Copy.y == 350 && hydrogen2Copy.x == 800 && hydrogen2Copy.y == 410){
+                if(chlorine1Copy.y > 270 && chlorine1Copy.x < 830){
+                    chlorine1Copy.moveUp();
+                }
+                else if(chlorine1Copy.x < 858){
+                    chlorine1Copy.moveRight();
+                }
+                else if(chlorine1Copy.y < 350){
+                    chlorine1Copy.moveDown();
+                }
 
-        if(hydrogen1.x > width){
-            hydrogen1.x = 0;
-            hydrogen2.x = 0;
+                if(chlorine2Copy.y < 490 && chlorine2Copy.x < 830){
+                    chlorine2Copy.moveDown();
+                }
+                else if(chlorine2Copy.x < 858){
+                    chlorine2Copy.moveRight();
+                }
+                else if(chlorine2Copy.y > 410){
+                    chlorine2Copy.moveUp();
+                }
+            }
+            else{
+                if(hydrogen1Copy.y > 200 && hydrogen1Copy.x != 800){
+                    hydrogen1Copy.moveUp();
+                }
+                else if(hydrogen1Copy.x < 800){
+                    hydrogen1Copy.moveRight();
+                }
+                else if(hydrogen1Copy.y < 350){
+                    hydrogen1Copy.moveDown();
+                }
+
+                if(hydrogen2Copy.y < 560 && hydrogen2Copy.x != 800){
+                    hydrogen2Copy.moveDown();
+                }
+                else if(hydrogen2Copy.x < 800){
+                    hydrogen2Copy.moveRight();
+                }
+                else if(hydrogen2Copy.y > 410){
+                    hydrogen2Copy.moveUp();
+                }
+                chlorine1Copy.draw();
+                chlorine2Copy.draw();
+            }
+
+            if(hydrogen1Copy.x == 800 && hydrogen1Copy.y == 350){
+                hydrogen1Copy.draw();
+            }
+            if(hydrogen2Copy.x == 800 && hydrogen2Copy.y == 410){
+                hydrogen2Copy.draw();
+            }
+            if(chlorine1Copy.y == 350 && chlorine1Copy.x == 859){
+                chlorine1Copy.draw();
+            }
+            if(chlorine2Copy.y == 410 && chlorine2Copy.x == 859){
+                chlorine2Copy.draw();
+            }        
+            hydrogen1.draw();
+            hydrogen2.draw(); 
+            chlorine1.draw();
+            chlorine2.draw();
         }
-
-        //updateMol();
+        else{
+            hydrogen1.draw();
+            hydrogen2.draw(); 
+            chlorine1.draw();
+            chlorine2.draw();
+            hydrogen1Copy.draw();
+            hydrogen2Copy.draw();   
+            chlorine1Copy.draw();
+            chlorine2Copy.draw(); 
+        }    
 
     }
     else if(sceneNo == 2){
