@@ -12,7 +12,7 @@ var cComCol = "white";
 var iComCol = "white";
 
 
-var sceneNo = 2;
+var sceneNo = 0;
 
 
 //initializing all images
