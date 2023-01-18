@@ -5,14 +5,21 @@ var height = canvas.height;
 let intervalID;
 var mousePos;
 
-let space = {
-	x: 20,
-	y: 60,
-	width: 960,
-	height: 480
+let borders = [
+	{x: 0, y: 0, width: 1000, height: 60}, 
+	{x: 0, y: 540, width: 1000, height: 60}, 
+	{x: 0, y: 0, width: 20, height: 600}, 
+	{x: 980, y: 0, width: 20, height: 600}, 
+];
+
+let buttons = {};
+var names = ["clear", "erase", "move", "single", "double", "triple", "H", "C", "O", "diagram"];
+var startX = 20;
+for (var i = 0; i < names.length; i++) {
+	buttons[names[i]] = {x: startX, y: 10, width: 40, height: 40};
+	startX += 50;
 }
 
-background();
 
 // canvas.addEventListener("mousedown", function (evt) {
 //     mousePos = getMousePos(canvas, evt);
@@ -22,13 +29,6 @@ background();
 
 canvas.addEventListener("mousemove", function (evt) {
     mousePos = getMousePos(canvas, evt);
-    if (isInside(mousePos, space)) {
-    	if (intervalID != 10) intervalID = setInterval(draw, 10);
-    }
-    else {
-		clearInterval(intervalID);
-		background();
-    }
 });
 
 // canvas.addEventListener("mouseup", function () {
@@ -36,27 +36,31 @@ canvas.addEventListener("mousemove", function (evt) {
 // 	background();
 // });
 
+
+function animate() {
+	window.requestAnimationFrame(animate);
+	background();
+	menus();
+}
+
 function background() {
 	ctx.beginPath();
 	ctx.fillStyle = "white";
 	ctx.fillRect(0, 0, canvas.width, canvas.height);
-	menus();
 }
 
 function menus() {
 	ctx.beginPath();
 	ctx.fillStyle = "#31f791";
-	ctx.fillRect(0,0,1000,60);
-	ctx.fillRect(0,540,1000,600);
-	ctx.fillRect(0,0,20,600);
-	ctx.fillRect(980,0,1000,600);
-}
-
-function draw() {
-	background();
-    ctx.fillStyle = "black";
-    ctx.arc(mousePos.x, mousePos.y, 10, 0, Math.PI*2);
-    ctx.fill();
+	for (var i = 0; i < borders.length; i++) {
+		b = borders[i];
+		ctx.fillRect(b.x, b.y, b.width, b.height);
+	}
+	ctx.fillStyle = "black";
+	for (var i = 0; i < buttons.length; i++) {
+		b = buttons[i];
+		ctx.fillRect(b.x, b.y, b.width, b.height);
+	}
 }
 
 function isInside(pos, rect){
@@ -70,3 +74,5 @@ function getMousePos(canvas, evt) {
         y: evt.clientY - rect.top
     };
 }
+
+animate();
