@@ -8,8 +8,8 @@ var synCol = "white";
 var decCol = "white";
 var sDisCol = "white";
 var dDisCol = "white";
-var cComCol = "white";
-var iComCol = "white";
+var comCol = "white";
+var acidCol = "white";
 
 
 var sceneNo = 0;
@@ -33,6 +33,15 @@ pause.src = "assets/pause.png"
 
 var plus = new Image();
 plus.src = "assets/plus.png"
+
+var replay = new Image();
+replay.src = "assets/replay.png"
+
+var arrow = new Image();
+arrow.src = "assets/arrow.png"
+
+var arrowSmall = new Image();
+arrowSmall.src = "assets/arrow2.png"
 
 //returns the mouse position
 function getMousePos(canvas, event) {
@@ -72,16 +81,16 @@ canvas.addEventListener('mousemove', function(evt) {
             dDisCol = "white";
         }
 
-        if(isInside(mousePos, cCombustion)){
-            cComCol = "rgb(217, 219, 218)";
+        if(isInside(mousePos, combustion)){
+            comCol = "rgb(217, 219, 218)";
         }else{
-            cComCol = "white";
+            comCol = "white";
         }
 
-        if(isInside(mousePos, iCombustion)){
-            iComCol = "rgb(217, 219, 218)";
+        if(isInside(mousePos, acidBase)){
+            acidCol = "rgb(217, 219, 218)";
         }else{
-            iComCol = "white";
+            acidCol = "white";
         }
     }
 
@@ -95,22 +104,28 @@ canvas.addEventListener('mousedown', function(evt) {
         if(isInside(mousePos, synthesis)){
             sceneNo = 1;
             animate1 = false;
+
+            let hydrogenS1Copy = new Molecule(200, 340, 60, "H", "green");
+            let hydrogenS2Copy = new Molecule(200, 460, 60, "H", "green");
+            let chlorineS1Copy = new Molecule(450, 350, 50, "Cl", "blue");
+            let chlorineS2Copy = new Molecule(450, 450, 50, "Cl", "blue");
+
             //resetting circle locations
-            hydrogen1Copy.x = 200;
-            hydrogen1Copy.y = 350;
-            hydrogen2Copy.x = 200;
-            hydrogen2Copy.y = 410;
-            chlorine1Copy.x = 400;
-            chlorine1Copy.y = 350;
-            chlorine2Copy.x = 400;
-            chlorine2Copy.y = 410;
+            hydrogenS1Copy.x = 200;
+            hydrogenS1Copy.y = 340;
+            hydrogenS2Copy.x = 200;
+            hydrogenS2Copy.y = 460;
+            chlorineS1Copy.x = 450;
+            chlorineS1Copy.y = 350;
+            chlorineS2Copy.x = 450;
+            chlorineS2Copy.y = 450;
 
         }
 
         else if(isInside(mousePos, decomposition)){
             sceneNo = 2;
-
             animate2 = false;
+
             hydrogenD1Copy.x = 200;
             hydrogenD1Copy.y = 280;
             hydrogenD2Copy.x = 320;
@@ -128,17 +143,35 @@ canvas.addEventListener('mousedown', function(evt) {
 
         else if(isInside(mousePos, sDisplace)){
             sceneNo = 3;
+            animate3 = false;
+
+            sodiumSDCopy.x = 100;
+            sodiumSDCopy.y = 380;
+            chlorineSDCopy.x = 200;
+            chlorineSDCopy.y = 380;
+            potassiumSDCopy.x = 440;
+            potassiumSDCopy.y = 380;
         }
 
         else if(isInside(mousePos, dDisplace)){
             sceneNo = 4;
+            animate4 = false;
+
+            magnesiumDDCopy.x = 80;
+            magnesiumDDCopy.y = 380;
+            oxygenDDCopy.x = 160;
+            oxygenDDCopy.y = 380;
+            calciumDDCopy.x = 340;
+            calciumDDCopy.y = 380;
+            sulfurDDCopy.x = 430;
+            sulfurDDCopy.y = 380;
         }
 
-        else if(isInside(mousePos, cCombustion)){
+        else if(isInside(mousePos, combustion)){
             sceneNo = 5;
         }
 
-        else if(isInside(mousePos, iCombustion)){
+        else if(isInside(mousePos, acidBase)){
             sceneNo = 6;
         }
     }
@@ -244,14 +277,14 @@ var dDisplace = {
     height:125
 };
 
-var cCombustion ={
+var combustion ={
     x:474,
     y:465,
     width:250,
     height:125
 };
 
-var iCombustion = {
+var acidBase = {
     x:836,
     y:465,
     width:250,
@@ -310,7 +343,7 @@ class Molecule{
         this.y = y;
         this.radius = radius;
         this.color = "white";
-        this.speed = 3;
+        this.speed = 5;
         this.name = name;
         this.col = color;
     }
@@ -368,15 +401,15 @@ var animate6 = false;
 
 
 //Synthesis Objects
-let hydrogen1 = new Molecule(200, 350, 30, "H", "green");
-let hydrogen2 = new Molecule(200, 410, 30, "H", "green");
-let chlorine1 = new Molecule(400, 350, 30, "Cl", "blue");
-let chlorine2 = new Molecule(400, 410, 30, "Cl", "blue");
+let hydrogenS1 = new Molecule(200, 340, 60, "H", "green");
+let hydrogenS2 = new Molecule(200, 460, 60, "H", "green");
+let chlorineS1 = new Molecule(450, 350, 50, "Cl", "blue");
+let chlorineS2 = new Molecule(450, 450, 50, "Cl", "blue");
 
-let hydrogen1Copy = new Molecule(200, 350, 30, "H", "green");
-let hydrogen2Copy = new Molecule(200, 410, 30, "H", "green");
-let chlorine1Copy = new Molecule(400, 350, 30, "Cl", "blue");
-let chlorine2Copy = new Molecule(400, 410, 30, "Cl", "blue");
+let hydrogenS1Copy = new Molecule(200, 340, 60, "H", "green");
+let hydrogenS2Copy = new Molecule(200, 460, 60, "H", "green");
+let chlorineS1Copy = new Molecule(450, 350, 50, "Cl", "blue");
+let chlorineS2Copy = new Molecule(450, 450, 50, "Cl", "blue");
 
 //Decomposition Objects
 let hydrogenD1 = new Molecule(200, 280, 30, "H", "rgb(52, 232, 235)");
@@ -387,7 +420,6 @@ let oxygenD1 = new Molecule(260, 320, 50, "O", "rgb(57, 67, 250)");
 let oxygenD2 = new Molecule(260, 460, 50, "O", "rgb(57, 67, 250)");
 
 
-
 let hydrogenD1Copy = new Molecule(200, 280, 30, "H", "rgb(52, 232, 235)");
 let hydrogenD2Copy = new Molecule(320, 280, 30, "H", "rgb(52, 232, 235)");
 let hydrogenD3Copy = new Molecule(200, 500, 30, "H", "rgb(52, 232, 235)");
@@ -395,6 +427,25 @@ let hydrogenD4Copy = new Molecule(320, 500, 30, "H", "rgb(52, 232, 235)");
 let oxygenD1Copy = new Molecule(260, 320, 50, "O", "rgb(57, 67, 250)");
 let oxygenD2Copy = new Molecule(260, 460, 50, "O", "rgb(57, 67, 250)");
 
+//Single Displacement Objects
+let sodiumSD = new Molecule(100, 380, 40, "Na", "rgb(117, 147, 255)");
+let chlorineSD = new Molecule(200, 380, 60, "Cl", "rgb(255, 110, 209)");
+let potassiumSD = new Molecule(440, 380, 50, "K", "rgb(255, 248, 117)");
+
+let sodiumSDCopy = new Molecule(100, 380, 40, "Na", "rgb(117, 147, 255)");
+let chlorineSDCopy = new Molecule(200, 380, 60, "Cl", "rgb(255, 110, 209)");
+let potassiumSDCopy = new Molecule(440, 380, 50, "K", "rgb(255, 248, 117)");
+
+//Double Displacement Objects
+let magnesiumDD = new Molecule(80, 380, 50, "Mg", "rgb(255, 192, 110)");
+let oxygenDD = new Molecule(160, 380, 30, "O", "rgb(239, 99, 255)");
+let calciumDD = new Molecule(340, 380, 50, "Ca", "rgb(199, 255, 94)");
+let sulfurDD = new Molecule(430, 380, 40, "S", "rgb(250, 136, 70)");
+
+let magnesiumDDCopy = new Molecule(80, 380, 50, "Mg", "rgb(255, 192, 110)");
+let oxygenDDCopy = new Molecule(160, 380, 30, "O", "rgb(239, 99, 255)");
+let calciumDDCopy = new Molecule(340, 380, 50, "Ca", "rgb(199, 255, 94)");
+let sulfurDDCopy = new Molecule(430, 380, 40, "S", "rgb(250, 136, 70)");
 
 function animate(){
     window.requestAnimationFrame(animate);
@@ -416,8 +467,8 @@ function animate(){
         drawBox(decomposition, decCol, "Decomposition", "", 1)
         drawBox(sDisplace, sDisCol, "Single", "Displacement", 2);
         drawBox(dDisplace, dDisCol, "Double", "Displacement", 2);
-        drawBox(cCombustion, cComCol, "Complete", "Combustion", 2);
-        drawBox(iCombustion, iComCol, "Incomplete", "Combustion", 2);
+        drawBox(combustion, comCol, "Combustion", "", 1);
+        drawBox(acidBase, acidCol, "Acid Base", "Reaction", 2);
 
 
     }
@@ -425,89 +476,79 @@ function animate(){
         ctx.fillStyle = "black";
         drawSim(animate1);
 
-        ctx.drawImage(plus, 275, 350);
+        ctx.drawImage(plus, 300, 370);
 
         ctx.font = "60px ChalkFont";
         ctx.fillStyle = "black";
         ctx.textAlign = "center";
         ctx.fillText("Synthesis Reaction", canvas.width/2, 75);
-          
+        ctx.drawImage(arrow, 560, 330);
 
         if(animate1){
 
-            if(hydrogen1Copy.x == 800 && hydrogen1Copy.y == 332 && hydrogen2Copy.x == 800 && hydrogen2Copy.y == 428){
-                if(chlorine1Copy.y > 250 && chlorine1Copy.x < 830){
-                    chlorine1Copy.moveUp();
+            if(hydrogenS1Copy.x >= 870 && hydrogenS1Copy.y >= 320 && hydrogenS2Copy.x >= 870 && hydrogenS2Copy.y <= 480){
+                if(chlorineS1Copy.y > 200 && chlorineS1Copy.x < 980){
+                    chlorineS1Copy.moveUp();
                 }
-                else if(chlorine1Copy.x < 858){
-                    chlorine1Copy.moveRight();
+                else if(chlorineS1Copy.y <= 200 && chlorineS1Copy.x < 980){
+                    chlorineS1Copy.moveRight();
                 }
-                else if(chlorine1Copy.y < 330){
-                    chlorine1Copy.moveDown();
+                else if(chlorineS1Copy.y < 320 && chlorineS1Copy.x >= 980){
+                    chlorineS1Copy.moveDown();
                 }
 
-                if(chlorine2Copy.y < 510 && chlorine2Copy.x < 830){
-                    chlorine2Copy.moveDown();
+                if(chlorineS2Copy.y < 600 && chlorineS2Copy.x < 980){
+                    chlorineS2Copy.moveDown();
                 }
-                else if(chlorine2Copy.x < 858){
-                    chlorine2Copy.moveRight();
+                else if(chlorineS2Copy.y >= 600 && chlorineS2Copy.x < 980){
+                    chlorineS2Copy.moveRight();
                 }
-                else if(chlorine2Copy.y > 430){
-                    chlorine2Copy.moveUp();
+                else if(chlorineS2Copy.y > 480 && chlorineS2Copy.x >= 980){
+                    chlorineS2Copy.moveUp();
                 }
             }
             else{
-                if(hydrogen1Copy.y > 200 && hydrogen1Copy.x != 800){
-                    hydrogen1Copy.moveUp();
+                if(hydrogenS1Copy.y > 200 && hydrogenS1Copy.x < 870){
+                    hydrogenS1Copy.moveUp();
                 }
-                else if(hydrogen1Copy.x < 800){
-                    hydrogen1Copy.moveRight();
+                else if(hydrogenS1Copy.y <= 200 && hydrogenS1Copy.x < 870){
+                    hydrogenS1Copy.moveRight();
                 }
-                else if(hydrogen1Copy.y < 330){
-                    hydrogen1Copy.moveDown();
+                else if(hydrogenS1Copy.y < 320 && hydrogenS1Copy.x >= 870){
+                    hydrogenS1Copy.moveDown();
                 }
 
-                if(hydrogen2Copy.y < 560 && hydrogen2Copy.x != 800){
-                    hydrogen2Copy.moveDown();
+                if(hydrogenS2Copy.y < 600 && hydrogenS2Copy.x < 870){
+                    hydrogenS2Copy.moveDown();
                 }
-                else if(hydrogen2Copy.x < 800){
-                    hydrogen2Copy.moveRight();
+                else if(hydrogenS2Copy.y >= 600 && hydrogenS2Copy.x < 870){
+                    hydrogenS2Copy.moveRight();
                 }
-                else if(hydrogen2Copy.y > 430){
-                    hydrogen2Copy.moveUp();
+                else if(hydrogenS2Copy.y > 480 && hydrogenS2Copy.x >= 870){
+                    hydrogenS2Copy.moveUp();
                 }
-                chlorine1Copy.draw();
-                chlorine2Copy.draw();
-            }
 
-            if(hydrogen1Copy.x == 800 && hydrogen1Copy.y >= 330){
-                hydrogen1Copy.draw();
             }
-            if(hydrogen2Copy.x == 800 && hydrogen2Copy.y <= 430){
-                hydrogen2Copy.draw();
-            }
-            if(chlorine1Copy.y >= 330 && chlorine1Copy.x == 859){
-                chlorine1Copy.draw();
-            }
-            if(chlorine2Copy.y <= 430 && chlorine2Copy.x == 859){
-                chlorine2Copy.draw();
-            }
+            if(hydrogenS1Copy.x >= 870 && hydrogenS1Copy.y >= 320) hydrogenS1Copy.draw();//up
+            if(chlorineS1Copy.x >= 980 && chlorineS1Copy.y >= 320) chlorineS1Copy.draw();
+            if(hydrogenS2Copy.x >= 870 && hydrogenS2Copy.y <= 480) hydrogenS2Copy.draw();//down
+            if(chlorineS2Copy.x >= 980 && chlorineS2Copy.y <= 480) chlorineS2Copy.draw();
 
-            hydrogen1.draw();
-            hydrogen2.draw(); 
-            chlorine1.draw();
-            chlorine2.draw();
+            hydrogenS1.draw();
+            hydrogenS2.draw(); 
+            chlorineS1.draw();
+            chlorineS2.draw();
         }
         else{
-            hydrogen1.draw();
-            hydrogen2.draw(); 
-            chlorine1.draw();
-            chlorine2.draw();
-            hydrogen1Copy.draw();
-            hydrogen2Copy.draw();   
-            chlorine1Copy.draw();
-            chlorine2Copy.draw(); 
-        }    
+            hydrogenS1.draw();
+            hydrogenS2.draw(); 
+            chlorineS1.draw();
+            chlorineS2.draw();
+            hydrogenS1Copy.draw();
+            hydrogenS2Copy.draw();   
+            chlorineS1Copy.draw();
+            chlorineS2Copy.draw(); 
+        }
 
     }
     else if(sceneNo == 2){
@@ -516,11 +557,12 @@ function animate(){
         ctx.fillStyle = "black";
         ctx.textAlign = "center";
         ctx.fillText("Decomposition Reaction", canvas.width/2, 75);
-
+        
+        ctx.drawImage(arrow, 450, 310);
         ctx.drawImage(plus, 875, 360);
 
         if(animate2){
-            if(hydrogenD1Copy.x == 1001 && hydrogenD1Copy.y == 340 && hydrogenD2Copy.x == 1061 && hydrogenD2Copy.y == 340 && hydrogenD3Copy.x == 1001 && hydrogenD3Copy.y == 440 && hydrogenD4Copy.x == 1061 && hydrogenD4Copy.y == 440){
+            if(hydrogenD1Copy.x >= 1000 && hydrogenD1Copy.y >= 340 && hydrogenD2Copy.x >= 1060 && hydrogenD2Copy.y >= 340 && hydrogenD3Copy.x >= 1000 && hydrogenD3Copy.y <= 440 && hydrogenD4Copy.x >= 1060 && hydrogenD4Copy.y <= 440){
                     if(oxygenD1Copy.y > 170 && oxygenD1Copy.x < 780){
                         oxygenD1Copy.moveUp();
                     }
@@ -583,10 +625,10 @@ function animate(){
                 }
             }
 
-            if(hydrogenD1Copy.x == 1001 && hydrogenD1Copy.y == 340) hydrogenD1Copy.draw();
-            if(hydrogenD2Copy.x == 1061 && hydrogenD2Copy.y == 340) hydrogenD2Copy.draw();
-            if(hydrogenD3Copy.x == 1001 && hydrogenD3Copy.y == 440) hydrogenD3Copy.draw();
-            if(hydrogenD4Copy.x == 1061 && hydrogenD4Copy.y == 440) hydrogenD4Copy.draw();
+            if(hydrogenD1Copy.x >= 1000 && hydrogenD1Copy.y >= 340) hydrogenD1Copy.draw();
+            if(hydrogenD2Copy.x >= 1060 && hydrogenD2Copy.y >= 340) hydrogenD2Copy.draw();
+            if(hydrogenD3Copy.x >= 1000 && hydrogenD3Copy.y <= 440) hydrogenD3Copy.draw();
+            if(hydrogenD4Copy.x >= 1060 && hydrogenD4Copy.y <= 440) hydrogenD4Copy.draw();
             if(oxygenD1Copy.x >= 780 && oxygenD1Copy.y >= 340) oxygenD1Copy.draw();
             if(oxygenD2Copy.x >= 780 && oxygenD2Copy.y <= 440) oxygenD2Copy.draw();
 
@@ -616,10 +658,151 @@ function animate(){
     }
     else if(sceneNo == 3){
         drawSim(animate3);
+        ctx.font = "50px ChalkFont";
+        ctx.fillStyle = "black";
+        ctx.textAlign = "center";
+        ctx.fillText("Single Displacement", canvas.width/2, 75);
+
+        ctx.drawImage(arrowSmall, 570, 330);
+        ctx.drawImage(plus, 300, 360);
+        ctx.drawImage(plus, 1000, 360);
+
+        if(animate3){          
+            if(chlorineSDCopy.y >= 380 && chlorineSDCopy.x >= 900){
+
+                if(sodiumSDCopy.y > 220 && sodiumSDCopy.x < 1125){
+                    sodiumSDCopy.moveUp();
+                }
+                else if(sodiumSDCopy.y <= 220 && sodiumSDCopy.x < 1125){
+                    sodiumSDCopy.moveRight();
+                }
+                else if(sodiumSDCopy.y < 380 && sodiumSDCopy.x >= 1125){
+                    sodiumSDCopy.moveDown();
+                }
+
+                if(potassiumSDCopy.y < 540 && potassiumSDCopy.x < 790){
+                    potassiumSDCopy.moveDown();
+                }
+                else if(potassiumSDCopy.y >= 540 && potassiumSDCopy.x < 790){
+                    potassiumSDCopy.moveRight();
+                }
+                else if(potassiumSDCopy.y > 380 && potassiumSDCopy.x >= 790){
+                    potassiumSDCopy.moveUp();
+                }
+
+            }
+            else{
+                if(chlorineSDCopy.y > 220 && chlorineSDCopy.x < 900){
+                    chlorineSDCopy.moveUp();
+                }
+                else if(chlorineSDCopy.y <= 220 && chlorineSDCopy.x < 900){
+                    chlorineSDCopy.moveRight();
+                }
+                else if(chlorineSDCopy.y < 380 && chlorineSDCopy.x >= 900){
+                    chlorineSDCopy.moveDown();
+                }
+            }
+
+            if(chlorineSDCopy.y >= 380 && chlorineSDCopy.x >= 900) chlorineSDCopy.draw();
+            if(potassiumSDCopy.y <= 380 && potassiumSDCopy.x >= 790) potassiumSDCopy.draw();
+            if(sodiumSDCopy.y >= 380 && sodiumSDCopy.x >= 1125) sodiumSDCopy.draw();
+
+            potassiumSD.draw();
+            sodiumSD.draw(); 
+            chlorineSD.draw();
+
+        }
+        else{
+            potassiumSD.draw();
+            sodiumSD.draw(); 
+            chlorineSD.draw();
+            potassiumSDCopy.draw();
+            chlorineSDCopy.draw();
+            sodiumSDCopy.draw(); 
+        }
+
     }
     else if(sceneNo == 4){
         drawSim(animate4);
-        
+        ctx.font = "50px ChalkFont";
+        ctx.fillStyle = "black";
+        ctx.textAlign = "center";
+        ctx.fillText("Double Displacement", canvas.width/2, 75);
+
+        ctx.drawImage(arrowSmall, 550, 330);
+        ctx.drawImage(plus, 220, 360);
+        ctx.drawImage(plus, 935, 360);
+
+        if(animate4){
+            if(calciumDDCopy.y <= 380 && calciumDDCopy.x >= 1050 && magnesiumDDCopy.y >= 380 && magnesiumDDCopy.x >= 790){
+
+                if(sulfurDDCopy.y > 220 && sulfurDDCopy.x < 880){
+                    sulfurDDCopy.moveUp();
+                }
+                else if(sulfurDDCopy.y <= 220 && sulfurDDCopy.x < 880){
+                    sulfurDDCopy.moveRight();
+                }
+                else if(sulfurDDCopy.y < 380 && sulfurDDCopy.x >= 880){
+                    sulfurDDCopy.moveDown();
+                }
+
+                if(oxygenDDCopy.y < 540 && oxygenDDCopy.x < 1130){
+                    oxygenDDCopy.moveDown();
+                }
+                else if(oxygenDDCopy.y >= 540 && oxygenDDCopy.x < 1130){
+                    oxygenDDCopy.moveRight();
+                }
+                else if(oxygenDDCopy.y > 380 && oxygenDDCopy.x >= 1130){
+                    oxygenDDCopy.moveUp();
+                }
+
+            }
+            else{
+
+                if(magnesiumDDCopy.y > 220 && magnesiumDDCopy.x < 790){
+                    magnesiumDDCopy.moveUp();
+                }
+                else if(magnesiumDDCopy.y <= 220 && magnesiumDDCopy.x < 790){
+                    magnesiumDDCopy.moveRight();
+                }
+                else if(magnesiumDDCopy.y < 380 && magnesiumDDCopy.x >= 790){
+                    magnesiumDDCopy.moveDown();
+                }
+
+                if(calciumDDCopy.y < 540 && calciumDDCopy.x < 1050){
+                    calciumDDCopy.moveDown();
+                }
+                else if(calciumDDCopy.y >= 540 && calciumDDCopy.x < 1050){
+                    calciumDDCopy.moveRight();
+                }
+                else if(calciumDDCopy.y > 380 && calciumDDCopy.x >= 1050){
+                    calciumDDCopy.moveUp();
+                }
+
+            }
+
+            if(oxygenDDCopy.y <= 380 && oxygenDDCopy.x >= 1130) oxygenDDCopy.draw();
+            if(calciumDDCopy.y <= 380 && calciumDDCopy.x >= 1050) calciumDDCopy.draw();
+            if(magnesiumDDCopy.y >= 380 && magnesiumDDCopy.x >= 790) magnesiumDDCopy.draw();
+            if(sulfurDDCopy.y >= 380 && sulfurDDCopy.x >= 880) sulfurDDCopy.draw();        
+
+            magnesiumDD.draw();
+            oxygenDD.draw();
+            calciumDD.draw();
+            sulfurDD.draw();
+        }
+        else{
+            magnesiumDD.draw();
+            oxygenDD.draw();
+            calciumDD.draw();
+            sulfurDD.draw();
+            magnesiumDDCopy.draw();
+            oxygenDDCopy.draw();
+            calciumDDCopy.draw();
+            sulfurDDCopy.draw();
+        }
+
+
     }
     else if(sceneNo == 5){
         drawSim(animate5);
