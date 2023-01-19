@@ -136,26 +136,30 @@ footer {
   display: grid;
   grid-template-columns: auto auto auto;
   gap: 2%;
-  padding: 2% 10% 2% 10%;
+  padding: 2% 5% 2% 10%;
   background-color: var(--green);
 }
 
 .module{
   display: grid;
   width: 23vw;
+  height: 45vh;
   grid-template-rows: 2fr 1fr;
   background-color: rgba(255, 255, 255, 0.8);
   text-align: center;
-  font-size: 30px;
   border-radius: 25px;
 }
 
+
+
 .module-text {
+    text-decoration: white;
+    font-size: 4.3vh;
 }
 
 .module-image img{
   width: 23vw;
-  height: 90%;
+  height: 33vh;
   border-radius: 25px 25px 0px 0px;
 }
 
@@ -180,18 +184,15 @@ footer {
   color: yellow;
 }
 
+.module:hover .module-image img{
+  width: 24vw;
+}
+
+
 .module:hover{
-  width: 23vw;
+  width: 24vw;
   background: grey;
-  transition: .4s ease;
-}
-
-@media(max-width:768px){
-
-}
-
-
-canvas {
-
+  height: 46vh;
+  
 }
 
