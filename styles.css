@@ -15,6 +15,8 @@
   --contrast: #fcb04c;
   --blue: #38b0f5;
   --green: #31f791;
+  --mint: #cdf7e2;
+  --dark-mint: #a1e6c5;
 }
 
 ::-webkit-scrollbar {
@@ -145,22 +147,27 @@ footer {
   width: 23vw;
   height: 45vh;
   grid-template-rows: 2fr 1fr;
-  background-color: rgba(255, 255, 255, 0.8);
+  background-color: var(--mint);
   text-align: center;
   border-radius: 25px;
+  transition: .6s ease;
 }
 
 
 
 .module-text {
-    text-decoration: white;
+    text-decoration: underline var(--mint);
+    color: black;
     font-size: 4.3vh;
+    transition: .6s ease;
 }
+
 
 .module-image img{
   width: 23vw;
   height: 33vh;
   border-radius: 25px 25px 0px 0px;
+  transition: .6s ease;
 }
 
 
@@ -184,15 +191,18 @@ footer {
   color: yellow;
 }
 
-.module:hover .module-image img{
-  width: 24vw;
-}
-
 
 .module:hover{
-  width: 24vw;
-  background: grey;
-  height: 46vh;
-  
+  background: var(--dark-mint);
+  transition: .6s ease;
 }
 
+.module:hover .module-text{
+  text-decoration: underline var(--dark-mint);
+  transition: .6s ease;
+}
+
+.module:hover .module-image{
+  filter: brightness(0.9);
+  transition: .6s ease;
+}
