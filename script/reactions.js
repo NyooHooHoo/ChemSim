@@ -12,7 +12,7 @@ var comCol = "white";
 var acidCol = "white";
 
 
-var sceneNo = 0;
+var sceneNo = 5;
 
 
 //initializing all images
@@ -271,8 +271,14 @@ canvas.addEventListener('mousedown', function(evt) {
         if(isInside(mousePos, backButton)){
             sceneNo = 0;
         }
-        if(isInside(mousePos, playButton)){
-            animate5 = !animate5;
+        if(isInside(mousePos, playButton) && animate5 == 0){
+            animate5 = 1;
+        }
+        else if(isInside(mousePos, playButton) && animate5 == 1){
+            animate5 = 0;
+        }
+        else if(isInside(mousePos, playButton) && animate5 == 2){
+            animate5 = 0;
         }
     }
     else if(sceneNo == 6){
@@ -507,6 +513,29 @@ let magnesiumDDCopy = new Molecule(80, 380, 50, "Mg", "rgb(255, 192, 110)");
 let oxygenDDCopy = new Molecule(160, 380, 30, "O", "rgb(239, 99, 255)");
 let calciumDDCopy = new Molecule(340, 380, 50, "Ca", "rgb(199, 255, 94)");
 let sulfurDDCopy = new Molecule(430, 380, 40, "S", "rgb(250, 136, 70)");
+
+
+//Combustion Objects
+let carbonC = new Molecule(140, 380, 50, "C", "rgb(255, 192, 110)");
+let hydrogenC1 = new Molecule(80, 330, 30, "H", "rgb(255, 251, 138)");
+let hydrogenC2 = new Molecule(200, 330, 30, "H", "rgb(255, 251, 138)");
+let hydrogenC3 = new Molecule(80, 430, 30, "H", "rgb(255, 251, 138)");
+let hydrogenC4 = new Molecule(200, 430, 30, "H", "rgb(255, 251, 138)");
+let oxygenC1 = new Molecule(360, 330, 35, "O", "rgb(138, 204, 255)");
+let oxygenC2 = new Molecule(430, 330, 35, "O", "rgb(138, 204, 255)");
+let oxygenC3 = new Molecule(360, 430, 35, "O", "rgb(138, 204, 255)");
+let oxygenC4 = new Molecule(430, 430, 35, "O", "rgb(138, 204, 255)");
+
+let carbonCCopy = new Molecule(750, 380, 50, "C", "rgb(255, 192, 110)");
+let hydrogenC1Copy = new Molecule(980, 315, 30, "H", "rgb(255, 251, 138)");
+let hydrogenC2Copy = new Molecule(1100, 315, 30, "H", "rgb(255, 251, 138)");
+let hydrogenC3Copy = new Molecule(980, 445, 30, "H", "rgb(255, 251, 138)");
+let hydrogenC4Copy = new Molecule(1100, 445, 30, "H", "rgb(255, 251, 138)");
+let oxygenC1Copy = new Molecule(750, 295, 35, "O", "rgb(138, 204, 255)");
+let oxygenC2Copy = new Molecule(980, 380, 35, "O", "rgb(138, 204, 255)");
+let oxygenC3Copy = new Molecule(750, 465, 35, "O", "rgb(138, 204, 255)");
+let oxygenC4Copy = new Molecule(1100, 380, 35, "O", "rgb(138, 204, 255)");
+
 
 function animate(){
     window.requestAnimationFrame(animate);
@@ -873,6 +902,59 @@ function animate(){
     }
     else if(sceneNo == 5){
         drawSim(animate5);
+        ctx.font = "50px ChalkFont";
+        ctx.fillStyle = "black";
+        ctx.textAlign = "center";
+        ctx.fillText("Combustion Reaction", canvas.width/2, 75);
+
+        ctx.drawImage(arrowSmall, 510, 330);
+        ctx.drawImage(plus, 250, 360);
+        ctx.drawImage(plus, 850, 360);
+
+        if(animate5 == 1){
+
+        }
+        else{
+            carbonC.draw();
+            hydrogenC1.draw();
+            hydrogenC2.draw();
+            hydrogenC3.draw();
+            hydrogenC4.draw();
+            oxygenC1.draw();
+            oxygenC2.draw();
+            oxygenC3.draw();
+            oxygenC4.draw();
+
+            carbonCCopy.draw();
+            hydrogenC1Copy.draw();
+            hydrogenC2Copy.draw();
+            hydrogenC3Copy.draw();
+            hydrogenC4Copy.draw();
+            oxygenC1Copy.draw();
+            oxygenC2Copy.draw();
+            oxygenC3Copy.draw();
+            oxygenC4Copy.draw();
+        }
+
+        carbonC.draw();
+        hydrogenC1.draw();
+        hydrogenC2.draw();
+        hydrogenC3.draw();
+        hydrogenC4.draw();
+        oxygenC1.draw();
+        oxygenC2.draw();
+        oxygenC3.draw();
+        oxygenC4.draw();
+
+        carbonCCopy.draw();
+        hydrogenC1Copy.draw();
+        hydrogenC2Copy.draw();
+        hydrogenC3Copy.draw();
+        hydrogenC4Copy.draw();
+        oxygenC1Copy.draw();
+        oxygenC2Copy.draw();
+        oxygenC3Copy.draw();
+        oxygenC4Copy.draw();
 
     }
     else if(sceneNo == 6){
