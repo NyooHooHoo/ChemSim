@@ -11,7 +11,10 @@ var borders = [
 	{x: 980, y: 0, width: 20, height: 600}, 
 	];
 
-var atoms = [];
+var atoms = {};
+var atomIndex = 0;
+var bonds = {};
+var bondIndex = 0;
 
 var buttons = [];
 var pressedButton = "move";
@@ -29,17 +32,29 @@ canvas.addEventListener("mousemove", function (evt) {
 canvas.addEventListener("click", function (evt) {
 	find: {
 		for (button of buttons) {
-			if (isInside(mousePos, button)) {
+			if (inRect(mousePos, button)) {
 				if (button.name == "clear") {
-					atoms = [];
-					bonds = [];
+					atoms = {};
+					bonds = {};
 				}
 				else pressedButton = button.name;
 				break find;
 			}
 		}
-		if (["B", "C", "H", "N", "O", "P", "S", "F", "Cl", "Br", "I"].includes(pressedButton))
-			atoms.push({x: mousePos.x, y: mousePos.y, element: pressedButton});
+		if (["B", "C", "H", "N", "O", "P", "S", "F", "Cl", "Br", "I"].includes(pressedButton)) {
+			atoms[atomIndex] = {x: mousePos.x, y: mousePos.y, element: pressedButton};
+			atomIndex++;
+			console.log(atoms);
+		}
+		else if (pressedButton == "erase") {
+			for (var i = 0; i < Object.keys(atoms).length; i++) {
+				console.log("hi");
+				if (inCircle(mousePos, atoms[i])) {
+					delete atoms[i];
+					break;
+				}
+			}
+		}
 	}
 });
 
@@ -66,7 +81,7 @@ function menus() {
 	}
 	for (var i = 0; i < buttons.length; i++) {
 		b = buttons[i];
-		if (isInside(mousePos, b) | b.name == pressedButton)
+		if (inRect(mousePos, b) | b.name == pressedButton)
 			ctx.fillStyle = "#bfbfbf";
 		else 
 			ctx.fillStyle = "grey";
@@ -84,19 +99,25 @@ function drawAtoms() {
 	ctx.textBaseline = "middle";
 	ctx.font = "24px sans-serif";
     ctx.textAlign = "center";
-	for (var i = 0; i < atoms.length; i++) {
+	for (var i in atoms) {
 		ctx.beginPath();
 		let a = atoms[i];
-		ctx.fillStyle = "white";
-		ctx.arc(a.x, a.y, 20, 0, 2 * Math.PI);
-		ctx.fill();
+		if (inCircle(mousePos, a)) {
+			ctx.fillStyle = "grey";
+			ctx.arc(a.x, a.y, 15, 0, 2 * Math.PI);
+			ctx.fill();
+		}
 		ctx.fillStyle = "black";
 		ctx.fillText(a.element, a.x, a.y);
 	}
 }
 
-function isInside(pos, rect){
-    return pos.x > rect.x && pos.x < rect.x+rect.width && pos.y < rect.y+rect.height && pos.y > rect.y;
+function inRect(pos, rect) {
+    return pos.x > rect.x && pos.x < rect.x + rect.width && pos.y < rect.y + rect.height && pos.y > rect.y;
+}
+
+function inCircle(pos, circle) {
+	return Math.sqrt(pos.x**2 + pos.y**2) < 15;
 }
 
 function getMousePos(canvas, evt) {
