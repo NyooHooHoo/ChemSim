@@ -87,9 +87,6 @@ function drawAtoms() {
 	for (var i = 0; i < atoms.length; i++) {
 		ctx.beginPath();
 		let a = atoms[i];
-		ctx.fillStyle = "white";
-		ctx.arc(a.x, a.y, 20, 0, 2 * Math.PI);
-		ctx.fill();
 		ctx.fillStyle = "black";
 		ctx.fillText(a.element, a.x, a.y);
 	}
