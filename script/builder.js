@@ -16,12 +16,35 @@ var atomIndex = 0;
 var bonds = {};
 var bondIndex = 0;
 
+var names = [
+	{name: "Move", symbol: ""}, 
+	{name: "Clear", symbol: ""}, 
+	{name: "Erase", symbol: ""}, 
+	{name: "Single Bond", symbol: "–"}, 
+	{name: "Double Bond", symbol: "="}, 
+	{name: "Triple Bond", symbol: "≡"}, 
+	{name: "Hydrogen", symbol: "H"}, 
+	{name: "Boron", symbol: "B"}, 
+	{name: "Carbon", symbol: "C"}, 
+	{name: "Nitrogen", symbol: "N"}, 
+	{name: "Oxygen", symbol: "O"}, 
+	{name: "Phosphorus", symbol: "P"},
+	{name: "Sulfur", symbol: "S"}, 
+	{name: "Fluorine", symbol: "F"}, 
+	{name: "Chlorine", symbol: "Cl"}, 
+	{name: "Bromine", symbol: "Br"}, 
+	{name: "Iodine", symbol: "I"}, 
+	{name: "Change Structural-Line Diagram", symbol: ""}
+	];
+
+var atomSymbols = ["B", "C", "H", "N", "O", "P", "S", "F", "Cl", "Br", "I"];
+var bondSymbols = ["–", "=", "≡"];
 var buttons = [];
-var pressedButton = "move";
-var names = ["move", "clear", "erase", "single", "double", "triple", "B", "C", "H", "N", "O", "P", "S", "F", "Cl", "Br", "I", "diagram"];
+var pressedButton = names[0];
+
 var startX = 50;
 for (var i = 0; i < names.length; i++) {
-	buttons.push({x: startX, y: 10, width: 40, height: 40, name: names[i]});
+	buttons.push({x: startX, y: 10, width: 40, height: 40, type: names[i]});
 	startX += 50;
 }
 
@@ -33,26 +56,28 @@ canvas.addEventListener("click", function (evt) {
 	find: {
 		for (button of buttons) {
 			if (inRect(mousePos, button)) {
-				if (button.name == "clear") {
+				if (button.type.name == "Clear") {
 					atoms = {};
 					bonds = {};
 				}
-				else pressedButton = button.name;
+				else pressedButton = button.type;
 				break find;
 			}
 		}
-		if (["B", "C", "H", "N", "O", "P", "S", "F", "Cl", "Br", "I"].includes(pressedButton)) {
-			atoms[atomIndex] = {x: mousePos.x, y: mousePos.y, element: pressedButton};
+		if (atomSymbols.includes(pressedButton.symbol)) {
+			atoms[atomIndex] = {x: mousePos.x, y: mousePos.y, element: pressedButton.symbol};
 			atomIndex++;
 			console.log(atoms);
 		}
-		else if (pressedButton == "erase") {
-			for (var i = 0; i < Object.keys(atoms).length; i++) {
+		else if (pressedButton.name == "Erase") {
+			console.log("hello");
+			for (i in atoms) {
 				console.log("hi");
 				if (inCircle(mousePos, atoms[i])) {
 					delete atoms[i];
 					break;
 				}
+				console.log(atoms);
 			}
 		}
 	}
@@ -81,13 +106,17 @@ function menus() {
 	}
 	for (var i = 0; i < buttons.length; i++) {
 		b = buttons[i];
-		if (inRect(mousePos, b) | b.name == pressedButton)
-			ctx.fillStyle = "#bfbfbf";
+		if (inRect(mousePos, b) | b.type.name == pressedButton.name)
+			ctx.fillStyle = "#a1e6c5";
 		else 
-			ctx.fillStyle = "grey";
+			ctx.fillStyle = "#cdf7e2";
 		ctx.fillRect(b.x, b.y, b.width, b.height);
 		ctx.fillStyle = "black";
-		ctx.fillText(b.name[0], b.x + b.width/2, b.y + b.height/2);
+		ctx.font = "24px sans-serif";
+		if (b.type.symbol == "=") ctx.fillText(b.type.symbol, b.x + b.width/2, b.y + b.height/2 + 2);
+		else ctx.fillText(b.type.symbol, b.x + b.width/2, b.y + b.height/2 + 3);
+		ctx.font = "14px sans-serif";
+		if (inRect(mousePos, b)) ctx.fillText(b.type.name, 500, 80);
 	}
 }
 
@@ -102,13 +131,17 @@ function drawAtoms() {
 	for (var i in atoms) {
 		ctx.beginPath();
 		let a = atoms[i];
-		if (inCircle(mousePos, a)) {
-			ctx.fillStyle = "grey";
-			ctx.arc(a.x, a.y, 15, 0, 2 * Math.PI);
+		if (inCircle(mousePos, a) && !atomSymbols.includes(pressedButton.symbol)) {
+			ctx.fillStyle = "#c2c0c0";
+			ctx.arc(a.x, a.y, 18, 0, 2 * Math.PI);
 			ctx.fill();
+			break;
 		}
+	}
+	for (var i in atoms) {
+		let a = atoms[i];
 		ctx.fillStyle = "black";
-		ctx.fillText(a.element, a.x, a.y);
+		ctx.fillText(a.element, a.x, a.y + 3);
 	}
 }
 
@@ -117,7 +150,7 @@ function inRect(pos, rect) {
 }
 
 function inCircle(pos, circle) {
-	return Math.sqrt(pos.x**2 + pos.y**2) < 15;
+	return Math.sqrt((pos.x - circle.x)**2 + (pos.y - circle.y)**2) < 18;
 }
 
 function getMousePos(canvas, evt) {
