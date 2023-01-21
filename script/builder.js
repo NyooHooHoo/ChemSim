@@ -15,6 +15,7 @@ var atoms = {};
 var atomIndex = 0;
 var bonds = {};
 var bondIndex = 0;
+var bonding = -1;
 
 var names = [
 	{name: "Move", symbol: ""}, 
@@ -67,17 +68,22 @@ canvas.addEventListener("click", function (evt) {
 		if (atomSymbols.includes(pressedButton.symbol)) {
 			atoms[atomIndex] = {x: mousePos.x, y: mousePos.y, element: pressedButton.symbol};
 			atomIndex++;
-			console.log(atoms);
 		}
-		else if (pressedButton.name == "Erase") {
-			console.log("hello");
+		else {
 			for (i in atoms) {
-				console.log("hi");
 				if (inCircle(mousePos, atoms[i])) {
-					delete atoms[i];
+					if (pressedButton.name == "Erase") delete atoms[i];
+					else if (/[–=≡]/.test(pressedButton.symbol)) {
+						if (bonding >= 0) {
+							bonds[bondIndex] = {a1: bonding, a2: i, type: pressedButton.symbol}
+							bondIndex++;
+							bonding = -1;
+						}
+						else bonding = i;
+						console.log(bonds)
+					}
 					break;
 				}
-				console.log(atoms);
 			}
 		}
 	}
@@ -121,7 +127,19 @@ function menus() {
 }
 
 function drawBonds() {
-
+	if (bonding >= 0) {
+		ctx.beginPath();
+		ctx.moveTo(atoms[bonding].x, atoms[bonding].y);
+		ctx.lineTo(mousePos.x, mousePos.y);
+		ctx.stroke();
+	}
+	for (i in bonds) {
+		b = bonds[i];
+		ctx.beginPath();
+		ctx.moveTo(atoms[b.a1].x, atoms[b.a1].y);
+		ctx.lineTo(atoms[b.a2].x, atoms[b.a2].y);
+		ctx.stroke();
+	}
 }
 
 function drawAtoms() {
@@ -141,7 +159,7 @@ function drawAtoms() {
 	for (var i in atoms) {
 		let a = atoms[i];
 		ctx.fillStyle = "black";
-		ctx.fillText(a.element, a.x, a.y + 3);
+		ctx.fillText(a.element, a.x, a.y);
 	}
 }
 
