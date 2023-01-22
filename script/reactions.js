@@ -216,7 +216,7 @@ canvas.addEventListener('mousedown', function(evt) {
     }
     else if(sceneNo == 1){
 
-        if(isInside(mousePos, backButton)){
+        if(isInside(mousePos, backButton) && help1 == false){
             sceneNo = 0;
         }
         if(isInside(mousePos, playButton) && animate1 == 0 && help1 == false){
@@ -248,7 +248,7 @@ canvas.addEventListener('mousedown', function(evt) {
 
     }
     else if(sceneNo == 2){
-        if(isInside(mousePos, backButton)){
+        if(isInside(mousePos, backButton) && help2 == false){
             sceneNo = 0;
         }
         if(isInside(mousePos, playButton) && animate2 == 0 && help2 == false){
@@ -284,7 +284,7 @@ canvas.addEventListener('mousedown', function(evt) {
 
     }
     else if(sceneNo == 3){
-        if(isInside(mousePos, backButton)){
+        if(isInside(mousePos, backButton) && help3 == false){
             sceneNo = 0;
         }
         if(isInside(mousePos, playButton) && animate3 == 0 && help3 == false){
@@ -313,7 +313,7 @@ canvas.addEventListener('mousedown', function(evt) {
         }
     }
     else if(sceneNo == 4){
-        if(isInside(mousePos, backButton)){
+        if(isInside(mousePos, backButton) && help4 == false){
             sceneNo = 0;
         }
         if(isInside(mousePos, playButton) && animate4 == 0 && help4 == false){
@@ -344,7 +344,7 @@ canvas.addEventListener('mousedown', function(evt) {
         }
     }
     else if(sceneNo == 5){
-        if(isInside(mousePos, backButton)){
+        if(isInside(mousePos, backButton) && help5 == false){
             sceneNo = 0;
         }
         if(isInside(mousePos, playButton) && animate5 == 0 && help5 == false){
@@ -385,7 +385,7 @@ canvas.addEventListener('mousedown', function(evt) {
         }
     }
     else if(sceneNo == 6){
-        if(isInside(mousePos, backButton)){
+        if(isInside(mousePos, backButton) && help6 == false){
             sceneNo = 0;
         }
         if(isInside(mousePos, playButton) && animate6 == 0 && help6 == false){
@@ -553,8 +553,8 @@ function drawHelp(title){
 
     ctx.drawImage(helpW, helpButton.x, helpButton.y);
 
-    ctx.font = "20px ChalkFont";
-    ctx.textAlign = "left";
+    ctx.font = "25px ChalkFont";
+    ctx.textAlign = "center";
 }
 
 
@@ -817,6 +817,15 @@ function animate(){
 
         if(help1){
             drawHelp("Synthesis Explanation");
+            ctx.fillText("Synthesis Reaction is when Multiple reactants create one product.",width/2,200);
+            ctx.fillText("Metal + Nonmetal -> Ionic Compound",width/2,250);
+            ctx.fillText("Hydrogen + Nonmetal -> Simple Acid",width/2,300);
+            ctx.fillText("Nonmetal + Nonmetal -> Molecular Compound",width/2,350);
+            ctx.font = "40px sans";
+            ctx.fillText("Generic Equation:",width/2,420);
+            ctx.fillText("A + B -> AB",width/2,500);
+            ctx.font = "30px ChalkFont";
+            ctx.fillText("Always make sure the Equation is balanced",width/2,600);
         }
        
     }
@@ -886,6 +895,14 @@ function animate(){
 
         if(help2){
             drawHelp("Decomposition Explanation");
+            ctx.fillText("Decomposition Reaction is when One reactant splits into multiple products.",width/2,200);
+            ctx.fillText("Ionic Compound -> Metal + Nonmetal",width/2,250);
+            ctx.fillText("Molecular Compound -> Nonmetal + Nonmetal",width/2,300);
+            ctx.font = "40px sans";
+            ctx.fillText("Generic Equation:",width/2,420);
+            ctx.fillText("AB -> A + B",width/2,500);
+            ctx.font = "30px ChalkFont";
+            ctx.fillText("Always make sure the Equation is balanced",width/2,600);
         }
 
     }
@@ -941,6 +958,16 @@ function animate(){
 
         if(help3){
             drawHelp("Single Displacement");
+            ctx.fillText("In this Reaction One element displaces another element in a compound.",width/2,200);
+            ctx.fillText("only ions of the same type can switch",width/2,250);
+            ctx.fillText("Metal replaces a Metal",width/2,300);
+            ctx.fillText("Nonmetal replaces a Nonmetal",width/2,350);
+            ctx.font = "40px sans";
+            ctx.fillText("Generic Equation:",width/2,420);
+            ctx.fillText("Metal: AB + C -> CB + A",width/2,500);
+            ctx.fillText("Non-Metal: AB + C -> AC + B",width/2,580);
+            ctx.font = "30px ChalkFont";
+            ctx.fillText("Always make sure the Equation is balanced",width/2,650);
         }
 
     }
@@ -1001,6 +1028,13 @@ function animate(){
 
         if(help4){
             drawHelp("Double Displacement");
+            ctx.fillText("Two aqueous ionic compounds switch places with each other",width/2,200);
+            ctx.fillText("Metal switches with a Metal",width/2,250);
+            ctx.font = "40px sans";
+            ctx.fillText("Generic Equation:",width/2,370);
+            ctx.fillText("AB + CD -> CB + AD",width/2,450);
+            ctx.font = "30px ChalkFont";
+            ctx.fillText("Always make sure the Equation is balanced",width/2,650);
         }
     }
     else if(sceneNo == 5){
@@ -1090,12 +1124,21 @@ function animate(){
 
         if(help5){
             drawHelp("Combustion Explanation");
+            ctx.fillText("Combustion reactions occur whenever oxygen is a reactant.",width/2,150);
+            ctx.fillText("Energy is also released in the form of heat or light.",width/2,200);
+            ctx.fillText("Non metal and Metal combustion (also synthesis)",width/2,250);
+            ctx.fillText("Inocomplete and Complete Hydrocarbon combustion",width/2,300);
+            ctx.font = "40px sans";
+            ctx.fillText("Generic Equation:",width/2,370);
+            ctx.fillText("Complete: CxHy + O2 -> CO2 + H2O",width/2,450);
+            ctx.fillText("Incomplete: CxHy + O2 -> H2O (+ CO2) (+ CO) (+ C)",width/2,530);
+            ctx.font = "30px ChalkFont";
+            ctx.fillText("Always make sure the Equation is balanced",width/2,650);
         }
-
 
     }
     else if(sceneNo == 6){
-        drawSim(animate6,"Acid-Base Reaction");
+        drawSim(animate6,"Neutralization Reaction");
 
         ctx.drawImage(arrowSmall, 510, 330);
         ctx.drawImage(plus, 240, 360);
@@ -1161,7 +1204,17 @@ function animate(){
         }
 
         if(help6){
-                drawHelp("Acid-Base Explanation");
+            drawHelp("Neutralization Explanation");
+            ctx.font = "18px ChalkFont";
+            ctx.fillText("Neutralization is a chemical reaction between an acid and a base",width/2,150);
+            ctx.fillText("Neutralization reactions with hydroxide bases are generally double displacement reactions",width/2,200);
+            ctx.fillText("Neutralization with a bicarbonate base involves a double displacement reaction with a decomposition reaction",width/2,250);
+            ctx.font = "40px sans";
+            ctx.fillText("Generic Equation:",width/2,370);
+            ctx.fillText("Hydroxide: Acid + Base -> Salt + Water",width/2,450);
+            ctx.fillText("Bicarbonate: Acid + Base -> Salt + Water + Carbon Dioxide",width/2,530);
+            ctx.font = "30px ChalkFont";
+            ctx.fillText("Always make sure the Equation is balanced",width/2,650);
         }
 
     }
