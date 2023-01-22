@@ -41,7 +41,13 @@ var arrow = new Image();
 arrow.src = "assets/arrow.png"
 
 var arrowSmall = new Image();
-arrowSmall.src = "assets/arrow2.png"
+arrowSmall.src = "assets/arrow2.png";
+
+var help = new Image();
+help.src = "assets/help.png"
+
+var helpW = new Image();
+helpW.src = "assets/helpWhite.png"
 
 //returns the mouse position
 function getMousePos(canvas, event) {
@@ -104,6 +110,7 @@ canvas.addEventListener('mousedown', function(evt) {
         if(isInside(mousePos, synthesis)){
             sceneNo = 1;
             animate1 = 0;
+            help1 = false;
 
             //resetting circle locations
             hydrogenS1Copy.x = 200;
@@ -120,6 +127,7 @@ canvas.addEventListener('mousedown', function(evt) {
         else if(isInside(mousePos, decomposition)){
             sceneNo = 2;
             animate2 = 0;
+            help2 = false;
 
             hydrogenD1Copy.x = 200;
             hydrogenD1Copy.y = 280;
@@ -139,6 +147,7 @@ canvas.addEventListener('mousedown', function(evt) {
         else if(isInside(mousePos, sDisplace)){
             sceneNo = 3;
             animate3 = 0;
+            help3 = false;
 
             sodiumSDCopy.x = 100;
             sodiumSDCopy.y = 380;
@@ -151,6 +160,7 @@ canvas.addEventListener('mousedown', function(evt) {
         else if(isInside(mousePos, dDisplace)){
             sceneNo = 4;
             animate4 = 0;
+            help4 = false;
 
             magnesiumDDCopy.x = 80;
             magnesiumDDCopy.y = 380;
@@ -164,6 +174,8 @@ canvas.addEventListener('mousedown', function(evt) {
 
         else if(isInside(mousePos, combustion)){
             sceneNo = 5;
+            animate4 = 0;
+            help5 = false;
 
             carbonCCopy.x = 140;
             carbonCCopy.y = 380;
@@ -198,6 +210,8 @@ canvas.addEventListener('mousedown', function(evt) {
             hydrogenA2Copy.y = 467;
 
             sceneNo = 6;
+            animate6 = 0;
+            help6 = false;
         }
     }
     else if(sceneNo == 1){
@@ -205,13 +219,13 @@ canvas.addEventListener('mousedown', function(evt) {
         if(isInside(mousePos, backButton)){
             sceneNo = 0;
         }
-        if(isInside(mousePos, playButton) && animate1 == 0){
+        if(isInside(mousePos, playButton) && animate1 == 0 && help1 == false){
             animate1 = 1;
         }
-        else if(isInside(mousePos, playButton) && animate1 == 1){
+        else if(isInside(mousePos, playButton) && animate1 == 1 && help1 == false){
             animate1 = 0;
         }
-        else if(isInside(mousePos, playButton) && animate1 == 2){
+        else if(isInside(mousePos, playButton) && animate1 == 2 && help1 == false){
             hydrogenS1Copy.x = 200;
             hydrogenS1Copy.y = 340;
             hydrogenS2Copy.x = 200;
@@ -224,18 +238,26 @@ canvas.addEventListener('mousedown', function(evt) {
             animate1 = 0;
         }
 
+        if(isInside(mousePos,helpButton) && help1 == false){
+            help1 = true;
+            if(animate1 == 1) animate1 = 0;
+        }
+        else if(isInside(mousePos,helpButton)){
+            help1 = false;
+        }
+
     }
     else if(sceneNo == 2){
         if(isInside(mousePos, backButton)){
             sceneNo = 0;
         }
-        if(isInside(mousePos, playButton) && animate2 == 0){
+        if(isInside(mousePos, playButton) && animate2 == 0 && help2 == false){
             animate2 = 1;
         }
-        else if(isInside(mousePos, playButton) && animate2 == 1){
+        else if(isInside(mousePos, playButton) && animate2 == 1 && help2 == false){
             animate2 = 0;
         }
-        else if(isInside(mousePos, playButton) && animate2 == 2){
+        else if(isInside(mousePos, playButton) && animate2 == 2 && help2 == false){
             hydrogenD1Copy.x = 200;
             hydrogenD1Copy.y = 280;
             hydrogenD2Copy.x = 320;
@@ -252,18 +274,26 @@ canvas.addEventListener('mousedown', function(evt) {
             animate2 = 0;
         }
 
+        if(isInside(mousePos,helpButton) && help2 == false){
+            help2 = true;
+            if(animate2 == 1) animate2 = 0;
+        }
+        else if(isInside(mousePos,helpButton)){
+            help2 = false;
+        }
+
     }
     else if(sceneNo == 3){
         if(isInside(mousePos, backButton)){
             sceneNo = 0;
         }
-        if(isInside(mousePos, playButton) && animate3 == 0){
+        if(isInside(mousePos, playButton) && animate3 == 0 && help3 == false){
             animate3 = 1;
         }
-        else if(isInside(mousePos, playButton) && animate3 == 1){
+        else if(isInside(mousePos, playButton) && animate3 == 1 && help3 == false){
             animate3 = 0;
         }
-        else if(isInside(mousePos, playButton) && animate3 == 2){
+        else if(isInside(mousePos, playButton) && animate3 == 2 && help3 == false){
             sodiumSDCopy.x = 100;
             sodiumSDCopy.y = 380;
             chlorineSDCopy.x = 200;
@@ -273,18 +303,26 @@ canvas.addEventListener('mousedown', function(evt) {
 
             animate3 = 0;
         }
+
+        if(isInside(mousePos,helpButton) && help3 == false){
+            help3 = true;
+            if(animate3 == 1) animate3 = 0;
+        }
+        else if(isInside(mousePos,helpButton)){
+            help3 = false;
+        }
     }
     else if(sceneNo == 4){
         if(isInside(mousePos, backButton)){
             sceneNo = 0;
         }
-        if(isInside(mousePos, playButton) && animate4 == 0){
+        if(isInside(mousePos, playButton) && animate4 == 0 && help4 == false){
             animate4 = 1;
         }
-        else if(isInside(mousePos, playButton) && animate4 == 1){
+        else if(isInside(mousePos, playButton) && animate4 == 1 && help4 == false){
             animate4 = 0;
         }
-        else if(isInside(mousePos, playButton) && animate4 == 2){
+        else if(isInside(mousePos, playButton) && animate4 == 2 && help4 == false){
             magnesiumDDCopy.x = 80;
             magnesiumDDCopy.y = 380;
             oxygenDDCopy.x = 160;
@@ -296,18 +334,26 @@ canvas.addEventListener('mousedown', function(evt) {
 
             animate4 = 0;
         }
+
+        if(isInside(mousePos,helpButton) && help4 == false){
+            help4 = true;
+            if(animate4 == 1) animate4 = 0;
+        }
+        else if(isInside(mousePos,helpButton)){
+            help4 = false;
+        }
     }
     else if(sceneNo == 5){
         if(isInside(mousePos, backButton)){
             sceneNo = 0;
         }
-        if(isInside(mousePos, playButton) && animate5 == 0){
+        if(isInside(mousePos, playButton) && animate5 == 0 && help5 == false){
             animate5 = 1;
         }
-        else if(isInside(mousePos, playButton) && animate5 == 1){
+        else if(isInside(mousePos, playButton) && animate5 == 1 && help5 == false){
             animate5 = 0;
         }
-        else if(isInside(mousePos, playButton) && animate5 == 2){
+        else if(isInside(mousePos, playButton) && animate5 == 2 && help5 == false){
             carbonCCopy.x = 140;
             carbonCCopy.y = 380;
             hydrogenC1Copy.x = 80;
@@ -329,18 +375,26 @@ canvas.addEventListener('mousedown', function(evt) {
             
             animate5 = 0;
         }
+
+        if(isInside(mousePos,helpButton) && help5 == false){
+            help5 = true;
+            if(animate5 == 1) animate5 = 0;
+        }
+        else if(isInside(mousePos,helpButton)){
+            help5 = false;
+        }
     }
     else if(sceneNo == 6){
         if(isInside(mousePos, backButton)){
             sceneNo = 0;
         }
-        if(isInside(mousePos, playButton) && animate6 == 0){
+        if(isInside(mousePos, playButton) && animate6 == 0 && help6 == false){
             animate6 = 1;
         }
-        else if(isInside(mousePos, playButton) && animate6 == 1){
+        else if(isInside(mousePos, playButton) && animate6 == 1 && help6 == false){
             animate6 = 0;
         }
-        else if(isInside(mousePos, playButton) && animate6 == 2){
+        else if(isInside(mousePos, playButton) && animate6 == 2 && help6 == false){
             hydrogenA1Copy.x = 80;
             hydrogenA1Copy.y = 380;
             chlorineACopy.x = 165;
@@ -354,6 +408,14 @@ canvas.addEventListener('mousedown', function(evt) {
 
             animate6 = 0;
         }
+
+        if(isInside(mousePos,helpButton) && help6 == false){
+            help6 = true;
+            if(animate6 == 1) animate6 = 0;
+        }
+        else if(isInside(mousePos,helpButton)){
+            help6 = false;
+        }
     }
 
 }, false);
@@ -363,6 +425,13 @@ function isInside(pos, rect){
     return pos.x > rect.x && pos.x < rect.x+rect.width && pos.y < rect.y+rect.height && pos.y > rect.y
 }
 
+
+var helpButton = {
+    x:1090,
+    y:590,
+    width:100,
+    height:100
+};
 
 var playButton = {
     x:1050,
@@ -469,8 +538,24 @@ function drawSim(animate, title){
     ctx.fillStyle = "black";
     ctx.textAlign = "center";
     ctx.fillText(title, canvas.width/2, 75);
+
+    ctx.drawImage(help, helpButton.x, helpButton.y);
 }
 
+function drawHelp(title){
+    ctx.fillStyle = "rgb(0,0,0,0.9)";
+    ctx.fillRect(0,0,width,height);
+
+    ctx.font = "60px ChalkFont";
+    ctx.fillStyle = "white";
+    ctx.textAlign = "center";
+    ctx.fillText(title, canvas.width/2, 50);
+
+    ctx.drawImage(helpW, helpButton.x, helpButton.y);
+
+    ctx.font = "20px ChalkFont";
+    ctx.textAlign = "left";
+}
 
 
 
@@ -560,6 +645,14 @@ var animate3 = 0;
 var animate4 = 0;
 var animate5 = 0;
 var animate6 = 0;
+
+//Boolean Variables
+var help1 = false;
+var help2 = false;
+var help3 = false;
+var help4 = false;
+var help5 = false;
+var help6 = false;
 
 
 //Synthesis Objects
@@ -722,6 +815,10 @@ function animate(){
                 animate1=2;
         }
 
+        if(help1){
+            drawHelp("Synthesis Explanation");
+        }
+       
     }
     else if(sceneNo == 2){
         drawSim(animate2,"Decomposition Reaction");
@@ -787,6 +884,10 @@ function animate(){
                 animate2 = 2;
         }
 
+        if(help2){
+            drawHelp("Decomposition Explanation");
+        }
+
     }
     else if(sceneNo == 3){
         drawSim(animate3,"Single Displacement");
@@ -837,6 +938,10 @@ function animate(){
                 ctx.fillText("Na",sodiumSDCopy.x,chlorineSD.y+140);
                 animate3 = 2;
         }   
+
+        if(help3){
+            drawHelp("Single Displacement");
+        }
 
     }
     else if(sceneNo == 4){
@@ -892,6 +997,10 @@ function animate(){
                 ctx.fillText("MgS",magnesiumDDCopy.x+40,magnesiumDD.y+140);
                 ctx.fillText("CaO",calciumDDCopy.x+40,magnesiumDD.y+140);
                 animate4 = 2;
+        }
+
+        if(help4){
+            drawHelp("Double Displacement");
         }
     }
     else if(sceneNo == 5){
@@ -979,6 +1088,10 @@ function animate(){
                 animate5 = 2;
         }
 
+        if(help5){
+            drawHelp("Combustion Explanation");
+        }
+
 
     }
     else if(sceneNo == 6){
@@ -1045,6 +1158,10 @@ function animate(){
                 ctx.fillText("H2O",oxygenACopy.x,chlorineA.y+180);
 
                 animate6 = 2;
+        }
+
+        if(help6){
+                drawHelp("Acid-Base Explanation");
         }
 
     }
