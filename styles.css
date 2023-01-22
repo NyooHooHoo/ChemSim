@@ -53,10 +53,14 @@ canvas {
 }
 
 .navbar-brand{
-  font-family: 'bebas-neue';
-  color: white;  
+  color: white;
+
   font-weight: 600;
-  font-size: 30px;
+  font-size: 40px;
+}
+
+.navbar-brand:hover{
+  color: white;
 }
 
 .navbar{
@@ -211,14 +215,38 @@ footer {
   padding-top: 0%;
 }
 
-#about-title {
-  margin-top: 130px;
+.team-content{
+  text-align: center;
+  border-radius: 50px;
+  background: #aceffc;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 50px 0px 50px 0px;
+  width: 1000px;
+  justify-content: center;
 }
 
+#about-title {
+  margin-top: 0;
+}
 
+#about-text {
+  width: 650px;
+  display: inline-block;
+  font-size: 20px;
+  padding-top: 20px;
+}
+
+#about-logo{
+  justify-content: center;
+  font-size: 50px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 500px;
+  margin-left: -5%;
+}
 
 .profile {
-    border-color: #1f3a67ff;
+    border-color: var(--blue);
     border-style: solid;
     border-width: 20px;
     overflow: hidden;
@@ -244,13 +272,17 @@ footer {
 
 .team-grid-container {
   display: inline-grid;
-  grid-template-columns: 30vw 30vw ;
+  grid-template-columns: 400px 400px;
 }
 
 .bio {
+  text-align: center;
+  border-radius: 50px;
+  background: var(--blue);
   margin-left: auto;
   margin-right: auto;
-  width: 500px;
+  padding: 20px 20px 20px 20px;
+  width: 300px;
 }
 
 
@@ -281,11 +313,6 @@ div .dot {
   right: 20%;
 }
 
-/*.wrapper div:nth-child(1) {
-  top: 64%;
-  left: 50%;
-  animation: animate 9s linear infinite;
-}*/
 .wrapper div:nth-child(2) {
   top: 60%;
   left: 85%;
