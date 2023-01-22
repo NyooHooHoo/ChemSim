@@ -206,3 +206,57 @@ footer {
   filter: brightness(0.9);
   transition: .6s ease;
 }
+
+#about-content {
+  height: auto;
+  color: black;
+  margin: 5px;
+  text-align: center;
+  padding-bottom: 0%;
+  padding-top: 0%;
+}
+
+#about-title {
+  margin-top: 130px;
+}
+
+#about-text {
+  width: 650px;
+  display: inline-block
+}
+
+.profile {
+    border-color: #1f3a67ff;
+    border-style: solid;
+    border-width: 20px;
+    overflow: hidden;
+    height: 250px;
+    width: 250px;
+    border-radius: 50%;
+    margin-top: 30px;
+    margin-bottom: 25px;
+    margin-left: auto;
+    margin-right: auto;
+    transition-duration: .3s;
+  }
+
+.profile:hover {
+  height: 260px;
+  width: 260px;
+}
+
+.profile-pic {
+  height: 100%;
+  width: 100%;
+}
+
+.team-grid-container {
+  display: inline-grid;
+  grid-template-columns: 30vw 30vw ;
+}
+
+.bio {
+  margin-left: auto;
+  margin-right: auto;
+  width: 500px;
+}

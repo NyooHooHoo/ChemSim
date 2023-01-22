@@ -12,7 +12,7 @@ var comCol = "white";
 var acidCol = "white";
 
 
-var sceneNo = 5;
+var sceneNo = 0;
 
 
 //initializing all images
@@ -186,6 +186,17 @@ canvas.addEventListener('mousedown', function(evt) {
         }
 
         else if(isInside(mousePos, acidBase)){
+            hydrogenA1Copy.x = 80;
+            hydrogenA1Copy.y = 380;
+            chlorineACopy.x = 165;
+            chlorineACopy.y = 380;
+            sodiumACopy.x = 380;
+            sodiumACopy.y = 390;
+            oxygenACopy.x = 435;
+            oxygenACopy.y = 300;
+            hydrogenA2Copy.x = 435;
+            hydrogenA2Copy.y = 467;
+
             sceneNo = 6;
         }
     }
@@ -323,8 +334,25 @@ canvas.addEventListener('mousedown', function(evt) {
         if(isInside(mousePos, backButton)){
             sceneNo = 0;
         }
-        if(isInside(mousePos, playButton)){
-            animate6 = !animate6;
+        if(isInside(mousePos, playButton) && animate6 == 0){
+            animate6 = 1;
+        }
+        else if(isInside(mousePos, playButton) && animate6 == 1){
+            animate6 = 0;
+        }
+        else if(isInside(mousePos, playButton) && animate6 == 2){
+            hydrogenA1Copy.x = 80;
+            hydrogenA1Copy.y = 380;
+            chlorineACopy.x = 165;
+            chlorineACopy.y = 380;
+            sodiumACopy.x = 380;
+            sodiumACopy.y = 390;
+            oxygenACopy.x = 435;
+            oxygenACopy.y = 300;
+            hydrogenA2Copy.x = 435;
+            hydrogenA2Copy.y = 467;
+
+            animate6 = 0;
         }
     }
 
@@ -420,7 +448,7 @@ function drawBg(){
     ctx.fillRect(0,0,width,height);
 }
 
-function drawSim(animate){
+function drawSim(animate, title){
     ctx.drawImage(bg2, 0, 0);
     ctx.fillStyle = "rgb(255, 255, 255, 0.6)";
     ctx.fillRect(0,0,width,height);
@@ -436,6 +464,11 @@ function drawSim(animate){
     }
     
     ctx.drawImage(back, backButton.x, backButton.y);
+
+    ctx.font = "50px ChalkFont";
+    ctx.fillStyle = "black";
+    ctx.textAlign = "center";
+    ctx.fillText(title, canvas.width/2, 75);
 }
 
 
@@ -599,6 +632,19 @@ let oxygenC3Copy = new Molecule(360, 430, 35, "O", "rgb(138, 204, 255)");
 let oxygenC4Copy = new Molecule(430, 430, 35, "O", "rgb(138, 204, 255)");
 
 
+//Acid Objects
+let hydrogenA1 = new Molecule(80, 380, 35, "H", "rgb(209, 250, 152)");
+let chlorineA = new Molecule(165, 380, 50, "Cl", "rgb(158, 249, 255)");
+let sodiumA = new Molecule(380, 390, 60, "Na", "rgb(245, 198, 137)");
+let oxygenA = new Molecule(435, 300, 45, "O", "rgb(216, 125, 255)");
+let hydrogenA2 = new Molecule(435, 467, 35, "H", "rgb(209, 250, 152)");
+
+let hydrogenA1Copy = new Molecule(80, 380, 35, "H", "rgb(209, 250, 152)");
+let chlorineACopy = new Molecule(165, 380, 50, "Cl", "rgb(158, 249, 255)");
+let sodiumACopy = new Molecule(380, 390, 60, "Na", "rgb(245, 198, 137)");
+let oxygenACopy = new Molecule(435, 300, 45, "O", "rgb(216, 125, 255)");
+let hydrogenA2Copy = new Molecule(435, 467, 35, "H", "rgb(209, 250, 152)");
+
 function animate(){
     window.requestAnimationFrame(animate);
 
@@ -626,14 +672,9 @@ function animate(){
     }
     else if(sceneNo == 1){
         ctx.fillStyle = "black";
-        drawSim(animate1);
+        drawSim(animate1, "Syntehsis Reaction");
 
         ctx.drawImage(plus, 300, 370);
-
-        ctx.font = "60px ChalkFont";
-        ctx.fillStyle = "black";
-        ctx.textAlign = "center";
-        ctx.fillText("Synthesis Reaction", canvas.width/2, 75);
         ctx.drawImage(arrow, 560, 330);
 
         if(animate1){
@@ -667,15 +708,23 @@ function animate(){
             chlorineS2Copy.draw(); 
         }
 
-        if(hydrogenS1Copy.x >= 870 && hydrogenS1Copy.y >= 320 && chlorineS1Copy.x >= 980 && chlorineS1Copy.y >= 320 && hydrogenS2Copy.x >= 870 && hydrogenS2Copy.y <= 480 && chlorineS2Copy.x >= 980 && chlorineS2Copy.y <= 480) animate1=2;
+        if(hydrogenS1Copy.x >= 870 && hydrogenS1Copy.y >= 320 && 
+            chlorineS1Copy.x >= 980 && chlorineS1Copy.y >= 320 && 
+            hydrogenS2Copy.x >= 870 && hydrogenS2Copy.y <= 480 && 
+            chlorineS2Copy.x >= 980 && chlorineS2Copy.y <= 480){
+                ctx.fillStyle = "black";
+                ctx.font = "50px serif";
+                ctx.textAlign = "center";
+                ctx.textBaseline = "middle";
+                ctx.fillText("H2",hydrogenS1.x,hydrogenS2.y+140);
+                ctx.fillText("Cl2",chlorineS1.x,hydrogenS2.y+140);
+                ctx.fillText("2 HCl",hydrogenS2Copy.x+50,hydrogenS2.y+140);
+                animate1=2;
+        }
 
     }
     else if(sceneNo == 2){
-        drawSim(animate2);
-        ctx.font = "50px ChalkFont";
-        ctx.fillStyle = "black";
-        ctx.textAlign = "center";
-        ctx.fillText("Decomposition Reaction", canvas.width/2, 75);
+        drawSim(animate2,"Decomposition Reaction");
         
         ctx.drawImage(arrow, 450, 310);
         ctx.drawImage(plus, 875, 360);
@@ -722,15 +771,25 @@ function animate(){
             oxygenD2Copy.draw();
         }
 
-        if(hydrogenD1Copy.x >= 1000 && hydrogenD1Copy.y >= 340 && hydrogenD2Copy.x >= 1060 && hydrogenD2Copy.y >= 340 && hydrogenD3Copy.x >= 1000 && hydrogenD3Copy.y <= 440 && hydrogenD4Copy.x >= 1060 && hydrogenD4Copy.y <= 440 && oxygenD1Copy.x >= 780 && oxygenD1Copy.y >= 340 && oxygenD2Copy.x >= 780 && oxygenD2Copy.y <= 440) animate2 = 2;
+        if(hydrogenD1Copy.x >= 1000 && hydrogenD1Copy.y >= 340 && 
+            hydrogenD2Copy.x >= 1060 && hydrogenD2Copy.y >= 340 && 
+            hydrogenD3Copy.x >= 1000 && hydrogenD3Copy.y <= 440 && 
+            hydrogenD4Copy.x >= 1060 && hydrogenD4Copy.y <= 440 && 
+            oxygenD1Copy.x >= 780 && oxygenD1Copy.y >= 340 && 
+            oxygenD2Copy.x >= 780 && oxygenD2Copy.y <= 440){
+                ctx.fillStyle = "black";
+                ctx.font = "50px serif";
+                ctx.textAlign = "center";
+                ctx.textBaseline = "middle";
+                ctx.fillText("2 H2O",oxygenD1.x,oxygenD2.y+140);
+                ctx.fillText("O2",oxygenD1Copy.x,oxygenD2.y+140);
+                ctx.fillText("2 H2",hydrogenD1Copy.x+hydrogenD1Copy.radius,oxygenD2.y+140);
+                animate2 = 2;
+        }
 
     }
     else if(sceneNo == 3){
-        drawSim(animate3);
-        ctx.font = "50px ChalkFont";
-        ctx.fillStyle = "black";
-        ctx.textAlign = "center";
-        ctx.fillText("Single Displacement", canvas.width/2, 75);
+        drawSim(animate3,"Single Displacement");
 
         ctx.drawImage(arrowSmall, 570, 330);
         ctx.drawImage(plus, 300, 360);
@@ -764,15 +823,24 @@ function animate(){
             sodiumSDCopy.draw(); 
         }
 
-        if(chlorineSDCopy.y >= 380 && chlorineSDCopy.x >= 900 && potassiumSDCopy.y <= 380 && potassiumSDCopy.x >= 790 && sodiumSDCopy.y >= 380 && sodiumSDCopy.x >= 1125) animate3 = 2;
+        if(chlorineSDCopy.y >= 380 && chlorineSDCopy.x >= 900 && 
+            potassiumSDCopy.y <= 380 && potassiumSDCopy.x >= 790 && 
+            sodiumSDCopy.y >= 380 && sodiumSDCopy.x >= 1125){
+                ctx.fillStyle = "black";
+                ctx.font = "50px serif";
+                ctx.textAlign = "center";
+                ctx.textBaseline = "middle";
+
+                ctx.fillText("ClNa",sodiumSD.x+60,chlorineSD.y+140);
+                ctx.fillText("K",potassiumSD.x,chlorineSD.y+140);
+                ctx.fillText("KCl",potassiumSDCopy.x+potassiumSDCopy.radius,chlorineSD.y+140);
+                ctx.fillText("Na",sodiumSDCopy.x,chlorineSD.y+140);
+                animate3 = 2;
+        }   
 
     }
     else if(sceneNo == 4){
-        drawSim(animate4);
-        ctx.font = "50px ChalkFont";
-        ctx.fillStyle = "black";
-        ctx.textAlign = "center";
-        ctx.fillText("Double Displacement", canvas.width/2, 75);
+        drawSim(animate4, "Double Displacement");
 
         ctx.drawImage(arrowSmall, 550, 330);
         ctx.drawImage(plus, 220, 360);
@@ -810,14 +878,24 @@ function animate(){
             sulfurDDCopy.draw();
         }
 
-        if(oxygenDDCopy.y <= 380 && oxygenDDCopy.x >= 1130 && calciumDDCopy.y <= 380 && calciumDDCopy.x >= 1050 && magnesiumDDCopy.y >= 380 && magnesiumDDCopy.x >= 790 && sulfurDDCopy.y >= 380 && sulfurDDCopy.x >= 880) animate4 = 2;
+        if(oxygenDDCopy.y <= 380 && oxygenDDCopy.x >= 1130 && 
+            calciumDDCopy.y <= 380 && calciumDDCopy.x >= 1050 && 
+            magnesiumDDCopy.y >= 380 && magnesiumDDCopy.x >= 790 && 
+            sulfurDDCopy.y >= 380 && sulfurDDCopy.x >= 880){
+                ctx.fillStyle = "black";
+                ctx.font = "50px serif";
+                ctx.textAlign = "center";
+                ctx.textBaseline = "middle";
+
+                ctx.fillText("MgO",magnesiumDD.x+40,magnesiumDD.y+140);
+                ctx.fillText("CaS",calciumDD.x+40,magnesiumDD.y+140);
+                ctx.fillText("MgS",magnesiumDDCopy.x+40,magnesiumDD.y+140);
+                ctx.fillText("CaO",calciumDDCopy.x+40,magnesiumDD.y+140);
+                animate4 = 2;
+        }
     }
     else if(sceneNo == 5){
-        drawSim(animate5);
-        ctx.font = "50px ChalkFont";
-        ctx.fillStyle = "black";
-        ctx.textAlign = "center";
-        ctx.fillText("Combustion Reaction", canvas.width/2, 75);
+        drawSim(animate5,"Combustion Reaction");
 
         ctx.drawImage(arrowSmall, 510, 330);
         ctx.drawImage(plus, 250, 360);
@@ -888,12 +966,86 @@ function animate(){
             oxygenC3Copy.y <= 465 && oxygenC3Copy.x >= 750 &&
             hydrogenC3Copy.y <= 445 && hydrogenC3Copy.x >= 980 &&
             hydrogenC4Copy.y <= 445 && hydrogenC4Copy.x >= 1100 &&
-            oxygenC4Copy.y <= 380 && oxygenC4Copy.x >= 1100) animate5 = 2;
+            oxygenC4Copy.y <= 380 && oxygenC4Copy.x >= 1100){
+                ctx.fillStyle = "black";
+                ctx.font = "50px serif";
+                ctx.textAlign = "center";
+                ctx.textBaseline = "middle";
+
+                ctx.fillText("CH4",carbonC.x,carbonC.y+180);
+                ctx.fillText("2 O2",oxygenC1.x+oxygenC1.radius,carbonC.y+180);
+                ctx.fillText("CO2",carbonCCopy.x,carbonC.y+180);
+                ctx.fillText("2 H2O",oxygenC2Copy.x+60,carbonC.y+180);
+                animate5 = 2;
+        }
 
 
     }
     else if(sceneNo == 6){
-        drawSim(animate6);
+        drawSim(animate6,"Acid-Base Reaction");
+
+        ctx.drawImage(arrowSmall, 510, 330);
+        ctx.drawImage(plus, 240, 360);
+        ctx.drawImage(plus, 940, 360);
+
+
+        if(animate6 == 1){
+            if(chlorineACopy.y >= 380 && chlorineACopy.x >= 730 && sodiumACopy.y <= 380 && sodiumACopy.x >= 840){
+                hydrogenA1Copy.moveUpSequence(1075,300,180);
+                oxygenACopy.moveUpSequence(1075,380,180);
+                hydrogenA2Copy.moveDownSequence(1075,460,580);
+            }
+            else{
+                chlorineACopy.moveUpSequence(730,380,180);
+                sodiumACopy.moveDownSequence(840,380,580);
+            }
+
+            //up
+            if(chlorineACopy.y >= 380 && chlorineACopy.x >= 730) chlorineACopy.draw();
+            if(hydrogenA1Copy.y >= 300 && hydrogenA1Copy.x >= 1075) hydrogenA1Copy.draw();
+            if(oxygenACopy.y >= 380 && oxygenACopy.x >= 1075) oxygenACopy.draw();
+            //down
+            if(sodiumACopy.y <= 380 && sodiumACopy.x >= 840) sodiumACopy.draw();
+            if(hydrogenA2Copy.y <= 460 && hydrogenA2Copy.x >= 1075) hydrogenA2Copy.draw();
+
+            hydrogenA1.draw();
+            chlorineA.draw();
+            sodiumA.draw();
+            oxygenA.draw();
+            hydrogenA2.draw();
+        }
+        else{
+            hydrogenA1.draw();
+            chlorineA.draw();
+            sodiumA.draw();
+            oxygenA.draw();
+            hydrogenA2.draw();
+
+            hydrogenA1Copy.draw();
+            chlorineACopy.draw();
+            sodiumACopy.draw();
+            oxygenACopy.draw();
+            hydrogenA2Copy.draw();
+        }
+
+
+        if(chlorineACopy.y >= 380 && chlorineACopy.x >= 730 &&
+            hydrogenA1Copy.y >= 300 && hydrogenA1Copy.x >= 1075 &&
+            oxygenACopy.y >= 380 && oxygenACopy.x >= 1075 &&
+            sodiumACopy.y <= 380 && sodiumACopy.x >= 840 &&
+            hydrogenA2Copy.y <= 460 && hydrogenA2Copy.x >= 1075){
+                ctx.fillStyle = "black";
+                ctx.font = "50px serif";
+                ctx.textAlign = "center";
+                ctx.textBaseline = "middle";
+
+                ctx.fillText("HCl",hydrogenA1.x+40,chlorineA.y+180);
+                ctx.fillText("NaOH",sodiumA.x+20,chlorineA.y+180);
+                ctx.fillText("NaCl",chlorineACopy.x+50,chlorineA.y+180);
+                ctx.fillText("H2O",oxygenACopy.x,chlorineA.y+180);
+
+                animate6 = 2;
+        }
 
     }
 
