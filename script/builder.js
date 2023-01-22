@@ -122,11 +122,11 @@ canvas.addEventListener("click", function () {
 					moleculeName = '...';
 					var firstAtom = Math.min(...Object.keys(atoms));
 					var SMILES = getSmiles(firstAtom, []);
-					console.log(SMILES.parts);
+					console.log(SMILES.str);
 					displayName: {
 						for (i in atoms) {
 							if (!SMILES.parts.includes(parseInt(i))) {
-								moleculeName = 'ERROR: Multiple molecules in the canvas.';
+								moleculeName = 'error: multiple molecules in the canvas.';
 								break displayName;
 							}
 						}
@@ -135,7 +135,7 @@ canvas.addEventListener("click", function () {
 							.then(function(response) {
 								response.text().then((data) => moleculeName = data.toLowerCase())
 							}).catch(function(error) {
-								moleculeName = 'ERROR: Molecule does not exist.';
+								moleculeName = 'error: molecule does not exist.';
 							});
 					}
 				}
