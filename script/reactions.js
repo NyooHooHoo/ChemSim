@@ -1,6 +1,5 @@
 var canvas = document.getElementById("reaction-simulation");
-// if (canvas.getContext) var ctx = canvas.getContext("2d"); else alert("Canvas element is not available");
-var ctx = canvas.getContext("2d");
+if (canvas.getContext) var ctx = canvas.getContext("2d"); else alert("Canvas element is not available");
 
 var width = canvas.width;
 var height = canvas.height;
