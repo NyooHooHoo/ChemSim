@@ -16,10 +16,19 @@ var bonds = {};
 var bondIndex = 0;
 var bonding = -1;
 
+var moveSymbol = new Image();
+moveSymbol.src = "assets/move.png";
+var clearSymbol = new Image();
+clearSymbol.src = "assets/clear.png";
+var eraseSymbol = new Image();
+eraseSymbol.src = "assets/erase.png";
+var diagramSymbol = new Image();
+diagramSymbol.src = "assets/diagram.png";
+
 var names = [
-	{name: "Move", symbol: ""}, 
-	{name: "Clear", symbol: ""}, 
-	{name: "Erase", symbol: ""}, 
+	{name: "Move", symbol: moveSymbol}, 
+	{name: "Clear", symbol: clearSymbol}, 
+	{name: "Erase", symbol: eraseSymbol}, 
 	{name: "Single Bond", symbol: "–"}, 
 	{name: "Double Bond", symbol: "="}, 
 	{name: "Triple Bond", symbol: "≡"}, 
@@ -34,7 +43,7 @@ var names = [
 	{name: "Chlorine", symbol: "Cl"}, 
 	{name: "Bromine", symbol: "Br"}, 
 	{name: "Iodine", symbol: "I"}, 
-	{name: "Change Structural-Line Diagram", symbol: ""},
+	{name: "Change Structural-Line Diagram", symbol: diagramSymbol},
 	{name: "Get Name", symbol: "Get Name"}
 	];
 
@@ -49,8 +58,6 @@ for (var i = 0; i < names.length - 1; i++) {
 	startX += 50;
 }
 buttons.push({x: 750, y: 750, width: 150, height: 40, type: names[names.length-1]});
-
-var moleculeName = "";
 
 canvas.addEventListener("mousemove", function (evt) {
     mousePos = getMousePos(canvas, evt);
@@ -87,6 +94,9 @@ canvas.addEventListener("click", function () {
 				else if (button.type.name == "Get Name") {
 
 				}
+				else if (button.type.name == "Change Structural-Line Diagram") {
+
+				}
 				else pressedButton = button.type;
 				break find;
 			}
@@ -111,7 +121,6 @@ canvas.addEventListener("click", function () {
 							bonds[bondIndex] = {a1: bonding, a2: i, type: pressedButton.symbol}
 							bondIndex++;
 							bonding = -1;
-							console.log(bonds);
 						}
 						else bonding = i;
 					}
@@ -150,10 +159,17 @@ function menus() {
 		else 
 			ctx.fillStyle = "#cdf7e2";
 		ctx.fillRect(b.x, b.y, b.width, b.height);
+		if (atomSymbols.includes(b.type.symbol) | bondSymbols.includes(b.type.symbol)) {
+			ctx.fillStyle = "black";
+			ctx.font = "24px sans-serif";
+			if (b.type.symbol == "=") ctx.fillText(b.type.symbol, b.x + b.width/2, b.y + b.height/2 + 2);
+			else ctx.fillText(b.type.symbol, b.x + b.width/2, b.y + b.height/2 + 3);
+		}
+		else {
+			if (b.type.symbol == diagramSymbol) ctx.drawImage(b.type.symbol, b.x, b.y);
+			else ctx.drawImage(b.type.symbol, b.x + 8, b.y + 7);
+		}
 		ctx.fillStyle = "black";
-		ctx.font = "24px sans-serif";
-		if (b.type.symbol == "=") ctx.fillText(b.type.symbol, b.x + b.width/2, b.y + b.height/2 + 2);
-		else ctx.fillText(b.type.symbol, b.x + b.width/2, b.y + b.height/2 + 3);
 		ctx.font = "14px sans-serif";
 		if (inRect(mousePos, b)) ctx.fillText(b.type.name, 500, 80);
 	}
@@ -170,27 +186,26 @@ function menus() {
 	ctx.fillRect(100, 750, 640, 40);
 }
 
-function gaps(a, b, r, right) {
-	var x1 = a.x, y1 = a.y;
-	if (right) 
-		var x2 = -b.y, y2 = b.x;
-	else
-		var x2 = b.x, y2 = b.y;
-	var slope = (y1 - y2) / (x1 - x2);
-	if (slope == Infinity) 
+function slope(a, b) {
+	return (a.y - b.y) / (a.x - b.x);
+}
+
+function gaps(a, b, r) {
+	var m = slope(a, b);
+	if (m == Infinity) 
 		return {x: 0, y: -r};
-	else if (slope == -Infinity) 
+	else if (m == -Infinity) 
 		return {x: 0, y: r}
 	else {
-		var gapX = r/(Math.sqrt(slope**2 + 1)) * (x1 <= x2 ? 1 : -1);
-		return {x: gapX, y: slope * gapX};
+		var gapX = r/(Math.sqrt(m**2 + 1)) * (a.x <= b.x ? 1 : -1);
+		return {x: gapX, y: m * gapX};
 	}
 }
 
 function drawBonds() {
 	if (bonding >= 0 && !inCircle(mousePos, atoms[bonding])) {
 		var atom = atoms[bonding]
-		var singleGaps = gaps(atom, mousePos, 18, false);
+		var singleGaps = gaps(atom, mousePos, 18);
 		ctx.beginPath();
 		ctx.moveTo(atom.x + singleGaps.x, atom.y + singleGaps.y);
 		ctx.lineTo(mousePos.x, mousePos.y);
@@ -209,7 +224,7 @@ function drawBonds() {
 		// }
 	}
 	for (i in bonds) {
-		var b = bonds[i], singleGaps = gaps(atoms[b.a1], atoms[b.a2], 18, false);
+		var b = bonds[i], singleGaps = gaps(atoms[b.a1], atoms[b.a2], 18);
 		ctx.beginPath();
 		ctx.moveTo(atoms[b.a1].x + singleGaps.x, atoms[b.a1].y + singleGaps.y);
 		ctx.lineTo(atoms[b.a2].x - singleGaps.x, atoms[b.a2].y - singleGaps.y);
