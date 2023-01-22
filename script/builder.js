@@ -22,8 +22,6 @@ var clearSymbol = new Image();
 clearSymbol.src = "assets/clear.png";
 var eraseSymbol = new Image();
 eraseSymbol.src = "assets/erase.png";
-var diagramSymbol = new Image();
-diagramSymbol.src = "assets/diagram.png";
 
 var names = [
 	{name: "Move", symbol: moveSymbol}, 
@@ -43,7 +41,6 @@ var names = [
 	{name: "Chlorine", symbol: "Cl"}, 
 	{name: "Bromine", symbol: "Br"}, 
 	{name: "Iodine", symbol: "I"}, 
-	{name: "Change Structural-Line Diagram", symbol: diagramSymbol},
 	{name: "Get Name", symbol: "Get Name"}
 	];
 
@@ -51,10 +48,9 @@ var atomSymbols = ["B", "C", "H", "N", "O", "P", "S", "F", "Cl", "Br", "I"];
 var bondSymbols = ["–", "=", "≡"];
 var buttons = [];
 var pressedButton = names[0];
-var lineDiagram = false;
 var moleculeName = "";
 
-var startX = 50;
+var startX = 75;
 for (var i = 0; i < names.length - 1; i++) {
 	buttons.push({x: startX, y: 10, width: 40, height: 40, type: names[i]});
 	startX += 50;
@@ -84,22 +80,25 @@ canvas.addEventListener("mouseup", function () {
 	dragging = -1;
 });
 
-function getSmiles() {
-	var atom = atoms[Math.min(...Object.keys(atoms))];
+function getSmiles(a, visited) {
+	var atom = atoms[a];
 	var smiles = atom.element;
-	// const smilesBonds = {'–':'', '=':'=', '≡':'%23'}
-	// while (true) {
-	// 	for (i in bonds) {
-	// 		bond = bonds[i];
-	// 		if (bond.a1 == atom) {
-
-	// 		}
-	// 		else if (bond.a2 == atom) {
-				
-	// 		}
-	// 	}
-	// }
-	return smiles;
+	visited.push(a);
+	const smilesBonds = {'–':'', '=':'=', '≡':'%23'}
+	var foundBond = false;
+	for (i in bonds) {
+		bond = bonds[i];
+		if (bond.a1 == a | bond.a2 == a) {
+			var partner = parseInt((bond.a1 == a ? bond.a2 : bond.a1));
+			if (!visited.includes(partner)) {
+				foundBond = true;
+				smiles += "(" + smilesBonds[bond.type];
+				smiles += getSmiles(partner, visited).str;
+				smiles += ")";
+			}
+		}
+	}
+	return {str: smiles, parts: visited};
 }
 
 function manageErrors(response) {
@@ -115,28 +114,41 @@ canvas.addEventListener("click", function () {
 			if (inRect(mousePos, button)) {
 				if (bonding >= 0) bonding = -1;
 				if (button.type.name == "Clear") {
+					moleculeName = '';
 					atoms = {};
 					bonds = {};
 				}
 				else if (button.type.name == "Get Name") {
-					fetch(`https://cactus.nci.nih.gov/chemical/structure/${getSmiles()}/iupac_name`)
-						.then(manageErrors)
-						.then(function(response) {
-							response.text().then((data) => moleculeName = data)
-						}).catch(function(error) {
-							moleculeName = 'ERROR';
-						});
+					moleculeName = '...';
+					var firstAtom = Math.min(...Object.keys(atoms));
+					var SMILES = getSmiles(firstAtom, []);
+					console.log(SMILES.parts);
+					displayName: {
+						for (i in atoms) {
+							if (!SMILES.parts.includes(parseInt(i))) {
+								moleculeName = 'ERROR: Multiple molecules in the canvas.';
+								break displayName;
+							}
+						}
+						fetch(`https://cactus.nci.nih.gov/chemical/structure/${SMILES.str}/iupac_name`)
+							.then(manageErrors)
+							.then(function(response) {
+								response.text().then((data) => moleculeName = data.toLowerCase())
+							}).catch(function(error) {
+								moleculeName = 'ERROR: Molecule does not exist.';
+							});
+					}
 				}
-				else if (button.type.name == "Change Structural-Line Diagram") {
-					lineDiagram = !lineDiagram;
+				else {
+					pressedButton = button.type;
 				}
-				else pressedButton = button.type;
 				break findButton;
 			}
 		}
 		findAtom: {
 			for (i in atoms) {
 				if (inCircle(mousePos, atoms[i])) {
+					if (pressedButton.name != "Move") moleculeName = '';
 					if (pressedButton.name == "Erase") {
 						for (j in bonds) {
 							bond = bonds[j];
@@ -170,6 +182,7 @@ canvas.addEventListener("click", function () {
 				}
 			}
 			if (atomSymbols.includes(pressedButton.symbol)) {
+				moleculeName = '';
 				atoms[atomIndex] = {x: mousePos.x, y: mousePos.y, element: pressedButton.symbol};
 				atomIndex++;
 			}
@@ -213,10 +226,7 @@ function menus() {
 			if (b.type.symbol == "=") ctx.fillText(b.type.symbol, b.x + b.width/2, b.y + b.height/2 + 2);
 			else ctx.fillText(b.type.symbol, b.x + b.width/2, b.y + b.height/2 + 3);
 		}
-		else {
-			if (b.type.symbol == diagramSymbol) ctx.drawImage(b.type.symbol, b.x, b.y);
-			else ctx.drawImage(b.type.symbol, b.x + 8, b.y + 7);
-		}
+		else ctx.drawImage(b.type.symbol, b.x + 8, b.y + 7);
 		ctx.fillStyle = "black";
 		ctx.font = "14px sans-serif";
 		if (inRect(mousePos, b)) ctx.fillText(b.type.name, 500, 80);
@@ -233,7 +243,6 @@ function menus() {
 	ctx.fillStyle = "#dcf2e7";
 	ctx.fillRect(100, 750, 640, 40);
 	ctx.fillStyle = "black";
-    // ctx.textAlign = "left";
     ctx.fillText(moleculeName, 420, 773);
 }
 
