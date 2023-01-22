@@ -118,7 +118,7 @@ canvas.addEventListener("click", function () {
 					atoms = {};
 					bonds = {};
 				}
-				else if (button.type.name == "Get Name") {
+				else if (button.type.name == "Get Name" && Object.keys(atoms).length > 0) {
 					moleculeName = '...';
 					var firstAtom = Math.min(...Object.keys(atoms));
 					var SMILES = getSmiles(firstAtom, []);
