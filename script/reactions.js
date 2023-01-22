@@ -1,5 +1,6 @@
 var canvas = document.getElementById("reaction-simulation");
-if (canvas.getContext) var ctx = canvas.getContext("2d"); else alert("Canvas element is not available");
+// if (canvas.getContext) var ctx = canvas.getContext("2d"); else alert("Canvas element is not available");
+var ctx = canvas.getContext("2d");
 
 var width = canvas.width;
 var height = canvas.height;
@@ -494,8 +495,8 @@ var acidBase = {
 //Drawing Methods
 function drawBox(rect, col, name1, name2, type){
     ctx.fillStyle = col;
-    ctx.roundRect(rect.x,rect.y,rect.width,rect.height,10);
-    ctx.fill();
+    ctx.fillRect(rect.x,rect.y,rect.width,rect.height,10);
+    // ctx.fill();
     ctx.beginPath();
 
     if(type == 1){
@@ -932,7 +933,7 @@ function animate(){
                 ctx.textAlign = "center";
                 ctx.textBaseline = "middle";
 
-                ctx.fillText("ClNa",sodiumSD.x+60,chlorineSD.y+140);
+                ctx.fillText("NaCl",sodiumSD.x+60,chlorineSD.y+140);
                 ctx.fillText("K",potassiumSD.x,chlorineSD.y+140);
                 ctx.fillText("KCl",potassiumSDCopy.x+potassiumSDCopy.radius,chlorineSD.y+140);
                 ctx.fillText("Na",sodiumSDCopy.x,chlorineSD.y+140);

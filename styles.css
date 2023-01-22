@@ -281,6 +281,11 @@ div .dot {
   right: 20%;
 }
 
+/*.wrapper div:nth-child(1) {
+  top: 64%;
+  left: 50%;
+  animation: animate 9s linear infinite;
+}*/
 .wrapper div:nth-child(2) {
   top: 60%;
   left: 85%;
@@ -351,6 +356,7 @@ div .dot {
   left: 50%;
   animation: animate 9s linear infinite;
 }
+
 @keyframes animate {
   0% {
     transform: scale(0) translateY(0) rotate(70deg);

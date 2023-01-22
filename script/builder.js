@@ -1,14 +1,13 @@
 var canvas = document.getElementById("builder-canvas");
 var ctx = canvas.getContext("2d");
-var width = canvas.width;
-var height = canvas.height;
 var mousePos = {x: 0, y: 0};
+var dragging = -1;
 
 var borders = [
 	{x: 0, y: 0, width: 1000, height: 60}, 
-	{x: 0, y: 540, width: 1000, height: 60}, 
-	{x: 0, y: 0, width: 20, height: 600}, 
-	{x: 980, y: 0, width: 20, height: 600}, 
+	{x: 0, y: 740, width: 1000, height: 60}, 
+	{x: 0, y: 0, width: 20, height: 800}, 
+	{x: 980, y: 0, width: 20, height: 800}, 
 	];
 
 var atoms = {};
@@ -35,7 +34,8 @@ var names = [
 	{name: "Chlorine", symbol: "Cl"}, 
 	{name: "Bromine", symbol: "Br"}, 
 	{name: "Iodine", symbol: "I"}, 
-	{name: "Change Structural-Line Diagram", symbol: ""}
+	{name: "Change Structural-Line Diagram", symbol: ""},
+	{name: "Get Name", symbol: "Get Name"}
 	];
 
 var atomSymbols = ["B", "C", "H", "N", "O", "P", "S", "F", "Cl", "Br", "I"];
@@ -44,22 +44,48 @@ var buttons = [];
 var pressedButton = names[0];
 
 var startX = 50;
-for (var i = 0; i < names.length; i++) {
+for (var i = 0; i < names.length - 1; i++) {
 	buttons.push({x: startX, y: 10, width: 40, height: 40, type: names[i]});
 	startX += 50;
 }
+buttons.push({x: 750, y: 750, width: 150, height: 40, type: names[names.length-1]});
+
+var moleculeName = "";
 
 canvas.addEventListener("mousemove", function (evt) {
     mousePos = getMousePos(canvas, evt);
+    if (dragging >= 0) {
+    	atoms[dragging].x = mousePos.x;
+    	atoms[dragging].y = mousePos.y;
+    }
 });
 
-canvas.addEventListener("click", function (evt) {
+canvas.addEventListener("mousedown", function () {
+	if (pressedButton.name == "Move") {
+		for (i in atoms) {
+			if (inCircle(mousePos, atoms[i])) {
+				dragging = i;
+				break;
+			}
+		}
+	}
+});
+
+canvas.addEventListener("mouseup", function () {
+	dragging = -1;
+});
+
+canvas.addEventListener("click", function () {
 	find: {
 		for (button of buttons) {
 			if (inRect(mousePos, button)) {
+				if (bonding >= 0) bonding = -1;
 				if (button.type.name == "Clear") {
 					atoms = {};
 					bonds = {};
+				}
+				else if (button.type.name == "Get Name") {
+
 				}
 				else pressedButton = button.type;
 				break find;
@@ -72,15 +98,22 @@ canvas.addEventListener("click", function (evt) {
 		else {
 			for (i in atoms) {
 				if (inCircle(mousePos, atoms[i])) {
-					if (pressedButton.name == "Erase") delete atoms[i];
+					if (pressedButton.name == "Erase") {
+						for (j in bonds) {
+							var bond = bonds[j];
+							if (bond.a1 == i | bond.a2 == i)
+								delete bonds[j];
+						}
+						delete atoms[i];
+					}
 					else if (/[–=≡]/.test(pressedButton.symbol)) {
 						if (bonding >= 0) {
 							bonds[bondIndex] = {a1: bonding, a2: i, type: pressedButton.symbol}
 							bondIndex++;
 							bonding = -1;
+							console.log(bonds);
 						}
 						else bonding = i;
-						console.log(bonds)
 					}
 					break;
 				}
@@ -110,7 +143,7 @@ function menus() {
 		b = borders[i];
 		ctx.fillRect(b.x, b.y, b.width, b.height);
 	}
-	for (var i = 0; i < buttons.length; i++) {
+	for (var i = 0; i < buttons.length - 1; i++) {
 		b = buttons[i];
 		if (inRect(mousePos, b) | b.type.name == pressedButton.name)
 			ctx.fillStyle = "#a1e6c5";
@@ -124,21 +157,75 @@ function menus() {
 		ctx.font = "14px sans-serif";
 		if (inRect(mousePos, b)) ctx.fillText(b.type.name, 500, 80);
 	}
+	b = buttons[buttons.length-1];
+	if (inRect(mousePos, b))
+		ctx.fillStyle = "#158acf";
+	else 
+		ctx.fillStyle = "#38b0f5";
+	ctx.fillRect(b.x, b.y, b.width, b.height);
+	ctx.fillStyle = "white";
+	ctx.font = "24px sans-serif";
+	ctx.fillText(b.type.symbol, b.x + b.width/2, b.y + b.height/2 + 3);
+	ctx.fillStyle = "#dcf2e7";
+	ctx.fillRect(100, 750, 640, 40);
+}
+
+function gaps(a, b, r, right) {
+	var x1 = a.x, y1 = a.y;
+	if (right) 
+		var x2 = -b.y, y2 = b.x;
+	else
+		var x2 = b.x, y2 = b.y;
+	var slope = (y1 - y2) / (x1 - x2);
+	if (slope == Infinity) 
+		return {x: 0, y: -r};
+	else if (slope == -Infinity) 
+		return {x: 0, y: r}
+	else {
+		var gapX = r/(Math.sqrt(slope**2 + 1)) * (x1 <= x2 ? 1 : -1);
+		return {x: gapX, y: slope * gapX};
+	}
 }
 
 function drawBonds() {
-	if (bonding >= 0) {
+	if (bonding >= 0 && !inCircle(mousePos, atoms[bonding])) {
+		var atom = atoms[bonding]
+		var singleGaps = gaps(atom, mousePos, 18, false);
 		ctx.beginPath();
-		ctx.moveTo(atoms[bonding].x, atoms[bonding].y);
+		ctx.moveTo(atom.x + singleGaps.x, atom.y + singleGaps.y);
 		ctx.lineTo(mousePos.x, mousePos.y);
 		ctx.stroke();
+		// if (pressedButton.symbol == "=" | pressedButton.symbol == "≡") {
+		// 	ctx.beginPath();
+		// 	ctx.moveTo(atom.x + singleGaps.x, atom.y + singleGaps.y);
+		// 	ctx.lineTo(mousePos.x, mousePos.y);
+		// 	ctx.stroke();
+		// }
+		// if (pressedButton.symbol == "≡") {
+		// 	ctx.beginPath();
+		// 	ctx.moveTo(atoms[bonding].x, atoms[bonding].y + 5);
+		// 	ctx.lineTo(mousePos.x, mousePos.y + 5);
+		// 	ctx.stroke();
+		// }
 	}
 	for (i in bonds) {
-		b = bonds[i];
+		var b = bonds[i], singleGaps = gaps(atoms[b.a1], atoms[b.a2], 18, false);
 		ctx.beginPath();
-		ctx.moveTo(atoms[b.a1].x, atoms[b.a1].y);
-		ctx.lineTo(atoms[b.a2].x, atoms[b.a2].y);
+		ctx.moveTo(atoms[b.a1].x + singleGaps.x, atoms[b.a1].y + singleGaps.y);
+		ctx.lineTo(atoms[b.a2].x - singleGaps.x, atoms[b.a2].y - singleGaps.y);
 		ctx.stroke();
+		// if (b.type == "=" | b.type == "≡") {
+		// 	ctx.beginPath();
+		// 	ctx.moveTo(atoms[b.a1].x, atoms[b.a1].y - 5);
+		// 	ctx.lineTo(atoms[b.a2].x, atoms[b.a2].y - 5);
+		// 	ctx.stroke();
+		// }
+		// if (b.type == "≡") {
+		// 	ctx.beginPath();
+		// 	ctx.moveTo(atoms[b.a1].x, atoms[b.a1].y + 5);
+		// 	ctx.lineTo(atoms[b.a2].x, atoms[b.a2].y + 5);
+		// 	ctx.stroke();
+		// }
 	}
 }
 
@@ -150,7 +237,7 @@ function drawAtoms() {
 		ctx.beginPath();
 		let a = atoms[i];
 		if (inCircle(mousePos, a) && !atomSymbols.includes(pressedButton.symbol)) {
-			ctx.fillStyle = "#c2c0c0";
+			ctx.fillStyle = "rgba(194, 194, 194, 0.5)";
 			ctx.arc(a.x, a.y, 18, 0, 2 * Math.PI);
 			ctx.fill();
 			break;
