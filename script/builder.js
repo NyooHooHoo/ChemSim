@@ -122,7 +122,6 @@ canvas.addEventListener("click", function () {
 					moleculeName = '...';
 					var firstAtom = Math.min(...Object.keys(atoms));
 					var SMILES = getSmiles(firstAtom, []);
-					console.log(SMILES.str);
 					displayName: {
 						for (i in atoms) {
 							if (!SMILES.parts.includes(parseInt(i))) {
@@ -182,6 +181,10 @@ canvas.addEventListener("click", function () {
 				}
 			}
 			if (atomSymbols.includes(pressedButton.symbol)) {
+				for (border of borders) {
+					if (inRect(mousePos, border)) 
+						break findAtom;
+				}
 				moleculeName = '';
 				atoms[atomIndex] = {x: mousePos.x, y: mousePos.y, element: pressedButton.symbol};
 				atomIndex++;

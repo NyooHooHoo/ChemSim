@@ -53,14 +53,14 @@ canvas {
 }
 
 .navbar-brand{
-  color: white;
+  color: var(--dark);
 
   font-weight: 600;
   font-size: 40px;
 }
 
 .navbar-brand:hover{
-  color: white;
+  color: var(--dark);
 }
 
 .navbar{
