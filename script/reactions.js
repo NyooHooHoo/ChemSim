@@ -6,11 +6,11 @@ if (canvas.getContext) var ctx = canvas.getContext("2d"); else alert("Canvas ele
 var width = canvas.width;
 var height = canvas.height;
 
-//
+//The main variable to keep track of the scene we are on
 var sceneNo = 0;
 
 
-//initializing all images
+//Initializing all images into variables for later usage
 var bg1 = new Image();
 bg1.src = "assets/chemBG.png";
 
@@ -57,6 +57,7 @@ function getMousePos(canvas, event) {
 canvas.addEventListener('mousemove', function(evt) {
     var mousePos = getMousePos(canvas, evt);
 
+    //Creates the hovering effect in the opening scene
     if(sceneNo == 0){
         if(isInside(mousePos, synthesis)){
             synCol = "rgb(217, 219, 218)";
@@ -101,8 +102,10 @@ canvas.addEventListener('mousemove', function(evt) {
 canvas.addEventListener('mousedown', function(evt) {
     var mousePos = getMousePos(canvas, evt);
 
+    //Picking the type of reaction when mouse down
     if(sceneNo == 0){
         if(isInside(mousePos, synthesis)){
+            //ressetting the varibles of the screen
             sceneNo = 1;
             animate1 = 0;
             help1 = false;
@@ -120,10 +123,11 @@ canvas.addEventListener('mousedown', function(evt) {
         }
 
         else if(isInside(mousePos, decomposition)){
+            //ressetting the varibles of the screen
             sceneNo = 2;
             animate2 = 0;
             help2 = false;
-
+            //resetting circle locations
             hydrogenD1Copy.x = 200;
             hydrogenD1Copy.y = 280;
             hydrogenD2Copy.x = 320;
@@ -143,7 +147,7 @@ canvas.addEventListener('mousedown', function(evt) {
             sceneNo = 3;
             animate3 = 0;
             help3 = false;
-
+            //resetting circle locations
             sodiumSDCopy.x = 100;
             sodiumSDCopy.y = 380;
             chlorineSDCopy.x = 200;
@@ -156,7 +160,7 @@ canvas.addEventListener('mousedown', function(evt) {
             sceneNo = 4;
             animate4 = 0;
             help4 = false;
-
+            //resetting circle locations
             magnesiumDDCopy.x = 80;
             magnesiumDDCopy.y = 380;
             oxygenDDCopy.x = 160;
@@ -171,7 +175,7 @@ canvas.addEventListener('mousedown', function(evt) {
             sceneNo = 5;
             animate4 = 0;
             help5 = false;
-
+            //resetting circle locations
             carbonCCopy.x = 140;
             carbonCCopy.y = 380;
             hydrogenC1Copy.x = 80;
@@ -193,6 +197,7 @@ canvas.addEventListener('mousedown', function(evt) {
         }
 
         else if(isInside(mousePos, acidBase)){
+            //resetting circle locations
             hydrogenA1Copy.x = 80;
             hydrogenA1Copy.y = 380;
             chlorineACopy.x = 165;
@@ -209,18 +214,18 @@ canvas.addEventListener('mousedown', function(evt) {
             help6 = false;
         }
     }
-    else if(sceneNo == 1){
+    else if(sceneNo == 1){//Mousdown events in the synthesis reaction
 
-        if(isInside(mousePos, backButton) && help1 == false){
+        if(isInside(mousePos, backButton) && help1 == false){//going back
             sceneNo = 0;
         }
-        if(isInside(mousePos, playButton) && animate1 == 0 && help1 == false){
+        if(isInside(mousePos, playButton) && animate1 == 0 && help1 == false){//resume
             animate1 = 1;
         }
-        else if(isInside(mousePos, playButton) && animate1 == 1 && help1 == false){
+        else if(isInside(mousePos, playButton) && animate1 == 1 && help1 == false){//pause
             animate1 = 0;
         }
-        else if(isInside(mousePos, playButton) && animate1 == 2 && help1 == false){
+        else if(isInside(mousePos, playButton) && animate1 == 2 && help1 == false){//resetting
             hydrogenS1Copy.x = 200;
             hydrogenS1Copy.y = 340;
             hydrogenS2Copy.x = 200;
@@ -233,26 +238,26 @@ canvas.addEventListener('mousedown', function(evt) {
             animate1 = 0;
         }
 
-        if(isInside(mousePos,helpButton) && help1 == false){
+        if(isInside(mousePos,helpButton) && help1 == false){//opening help screen
             help1 = true;
             if(animate1 == 1) animate1 = 0;
         }
-        else if(isInside(mousePos,helpButton)){
+        else if(isInside(mousePos,helpButton)){//closing help screen
             help1 = false;
         }
 
     }
     else if(sceneNo == 2){
-        if(isInside(mousePos, backButton) && help2 == false){
+        if(isInside(mousePos, backButton) && help2 == false){//going back
             sceneNo = 0;
         }
-        if(isInside(mousePos, playButton) && animate2 == 0 && help2 == false){
+        if(isInside(mousePos, playButton) && animate2 == 0 && help2 == false){//resuming the animation
             animate2 = 1;
         }
-        else if(isInside(mousePos, playButton) && animate2 == 1 && help2 == false){
+        else if(isInside(mousePos, playButton) && animate2 == 1 && help2 == false){//pausing the animation
             animate2 = 0;
         }
-        else if(isInside(mousePos, playButton) && animate2 == 2 && help2 == false){
+        else if(isInside(mousePos, playButton) && animate2 == 2 && help2 == false){//resetting the locations
             hydrogenD1Copy.x = 200;
             hydrogenD1Copy.y = 280;
             hydrogenD2Copy.x = 320;
@@ -269,7 +274,7 @@ canvas.addEventListener('mousedown', function(evt) {
             animate2 = 0;
         }
 
-        if(isInside(mousePos,helpButton) && help2 == false){
+        if(isInside(mousePos,helpButton) && help2 == false){//opening the help page
             help2 = true;
             if(animate2 == 1) animate2 = 0;
         }
@@ -279,16 +284,16 @@ canvas.addEventListener('mousedown', function(evt) {
 
     }
     else if(sceneNo == 3){
-        if(isInside(mousePos, backButton) && help3 == false){
+        if(isInside(mousePos, backButton) && help3 == false){//going back
             sceneNo = 0;
         }
-        if(isInside(mousePos, playButton) && animate3 == 0 && help3 == false){
+        if(isInside(mousePos, playButton) && animate3 == 0 && help3 == false){//resuming the animation
             animate3 = 1;
         }
-        else if(isInside(mousePos, playButton) && animate3 == 1 && help3 == false){
+        else if(isInside(mousePos, playButton) && animate3 == 1 && help3 == false){//pausing the animation
             animate3 = 0;
         }
-        else if(isInside(mousePos, playButton) && animate3 == 2 && help3 == false){
+        else if(isInside(mousePos, playButton) && animate3 == 2 && help3 == false){//resetting
             sodiumSDCopy.x = 100;
             sodiumSDCopy.y = 380;
             chlorineSDCopy.x = 200;
@@ -299,25 +304,25 @@ canvas.addEventListener('mousedown', function(evt) {
             animate3 = 0;
         }
 
-        if(isInside(mousePos,helpButton) && help3 == false){
+        if(isInside(mousePos,helpButton) && help3 == false){//opening helping page
             help3 = true;
             if(animate3 == 1) animate3 = 0;
         }
-        else if(isInside(mousePos,helpButton)){
+        else if(isInside(mousePos,helpButton)){//closing help
             help3 = false;
         }
     }
     else if(sceneNo == 4){
-        if(isInside(mousePos, backButton) && help4 == false){
+        if(isInside(mousePos, backButton) && help4 == false){//going back
             sceneNo = 0;
         }
-        if(isInside(mousePos, playButton) && animate4 == 0 && help4 == false){
+        if(isInside(mousePos, playButton) && animate4 == 0 && help4 == false){//resuming the animation
             animate4 = 1;
         }
-        else if(isInside(mousePos, playButton) && animate4 == 1 && help4 == false){
+        else if(isInside(mousePos, playButton) && animate4 == 1 && help4 == false){//pausing the animatino
             animate4 = 0;
         }
-        else if(isInside(mousePos, playButton) && animate4 == 2 && help4 == false){
+        else if(isInside(mousePos, playButton) && animate4 == 2 && help4 == false){//resetting the animation
             magnesiumDDCopy.x = 80;
             magnesiumDDCopy.y = 380;
             oxygenDDCopy.x = 160;
@@ -330,25 +335,25 @@ canvas.addEventListener('mousedown', function(evt) {
             animate4 = 0;
         }
 
-        if(isInside(mousePos,helpButton) && help4 == false){
+        if(isInside(mousePos,helpButton) && help4 == false){//opening help
             help4 = true;
             if(animate4 == 1) animate4 = 0;
         }
-        else if(isInside(mousePos,helpButton)){
+        else if(isInside(mousePos,helpButton)){//clsoing help
             help4 = false;
         }
     }
     else if(sceneNo == 5){
-        if(isInside(mousePos, backButton) && help5 == false){
+        if(isInside(mousePos, backButton) && help5 == false){//going back 
             sceneNo = 0;
         }
-        if(isInside(mousePos, playButton) && animate5 == 0 && help5 == false){
+        if(isInside(mousePos, playButton) && animate5 == 0 && help5 == false){//resuming the animation
             animate5 = 1;
         }
-        else if(isInside(mousePos, playButton) && animate5 == 1 && help5 == false){
+        else if(isInside(mousePos, playButton) && animate5 == 1 && help5 == false){//pausing the animation
             animate5 = 0;
         }
-        else if(isInside(mousePos, playButton) && animate5 == 2 && help5 == false){
+        else if(isInside(mousePos, playButton) && animate5 == 2 && help5 == false){//resetting the animation
             carbonCCopy.x = 140;
             carbonCCopy.y = 380;
             hydrogenC1Copy.x = 80;
@@ -371,25 +376,25 @@ canvas.addEventListener('mousedown', function(evt) {
             animate5 = 0;
         }
 
-        if(isInside(mousePos,helpButton) && help5 == false){
+        if(isInside(mousePos,helpButton) && help5 == false){//opening help
             help5 = true;
             if(animate5 == 1) animate5 = 0;
         }
-        else if(isInside(mousePos,helpButton)){
+        else if(isInside(mousePos,helpButton)){//closing help
             help5 = false;
         }
     }
     else if(sceneNo == 6){
-        if(isInside(mousePos, backButton) && help6 == false){
+        if(isInside(mousePos, backButton) && help6 == false){//going back
             sceneNo = 0;
         }
-        if(isInside(mousePos, playButton) && animate6 == 0 && help6 == false){
+        if(isInside(mousePos, playButton) && animate6 == 0 && help6 == false){//resuming animation
             animate6 = 1;
         }
-        else if(isInside(mousePos, playButton) && animate6 == 1 && help6 == false){
+        else if(isInside(mousePos, playButton) && animate6 == 1 && help6 == false){//pausing animation
             animate6 = 0;
         }
-        else if(isInside(mousePos, playButton) && animate6 == 2 && help6 == false){
+        else if(isInside(mousePos, playButton) && animate6 == 2 && help6 == false){//resetting animation
             hydrogenA1Copy.x = 80;
             hydrogenA1Copy.y = 380;
             chlorineACopy.x = 165;
@@ -415,12 +420,12 @@ canvas.addEventListener('mousedown', function(evt) {
 
 }, false);
 
-
+//returns if the mouse is inside an object
 function isInside(pos, rect){
     return pos.x > rect.x && pos.x < rect.x+rect.width && pos.y < rect.y+rect.height && pos.y > rect.y
 }
 
-
+//all the object variables used with the animation with attributes of x, y, height and width
 var helpButton = {
     x:1090,
     y:590,
@@ -487,6 +492,8 @@ var acidBase = {
 
 
 //Drawing Methods
+
+//Draws the different animations for the starting scene
 function drawBox(rect, col, name1, name2, type){
     ctx.fillStyle = col;
     ctx.fillRect(rect.x,rect.y,rect.width,rect.height,10);
@@ -506,12 +513,14 @@ function drawBox(rect, col, name1, name2, type){
 
 }
 
+//draws the background
 function drawBg(){
     ctx.drawImage(bg1, 0, 0);
     ctx.fillStyle = "rgb(255, 255, 255, 0.6)";
     ctx.fillRect(0,0,width,height);
 }
 
+//draws the background of the simulator
 function drawSim(animate, title){
     ctx.drawImage(bg2, 0, 0);
     ctx.fillStyle = "rgb(255, 255, 255, 0.6)";
@@ -537,6 +546,7 @@ function drawSim(animate, title){
     ctx.drawImage(help, helpButton.x, helpButton.y);
 }
 
+//draws the help screen
 function drawHelp(title){
     ctx.fillStyle = "rgb(0,0,0,0.9)";
     ctx.fillRect(0,0,width,height);
@@ -554,7 +564,7 @@ function drawHelp(title){
 
 
 
-//Classes
+//Molecule class
 class Molecule{
     constructor(x, y, radius, name, color){
         this.x = x;
@@ -599,6 +609,7 @@ class Molecule{
         this.x -= this.speed; 
     }
 
+    //contains the moving up animation
     moveUpSequence(targetX, targetY, maxY){
         if(this.y > maxY && this.x < targetX){
             this.moveUp();
@@ -611,6 +622,7 @@ class Molecule{
         }
     }
 
+    //contains the moving down animation
     moveDownSequence(targetX, targetY, maxY){
         if(this.y < maxY && this.x < targetX){
             this.moveDown();
@@ -625,15 +637,7 @@ class Molecule{
 }
 
 
-var circle = {
-    centerX:250, 
-    centerY:250, 
-    radius:125, 
-    angle:0
-}
-
-
-//Boolean Variables
+//Boolean Variables to see if its in pause, reset or resume
 var animate1 = 0;
 var animate2 = 0;
 var animate3 = 0;
@@ -641,7 +645,7 @@ var animate4 = 0;
 var animate5 = 0;
 var animate6 = 0;
 
-//Boolean Variables
+//Boolean Variables to check if they need the help screen
 var help1 = false;
 var help2 = false;
 var help3 = false;
@@ -745,7 +749,7 @@ var acidCol = "white";
 function animate(){
     window.requestAnimationFrame(animate);
 
-    if(sceneNo == 0){
+    if(sceneNo == 0){//the opening scene of the animation
         drawBg();
 
         ctx.font = "80px Comic Sans MS";
@@ -774,7 +778,7 @@ function animate(){
         ctx.drawImage(plus, 300, 370);
         ctx.drawImage(arrow, 560, 330);
 
-        if(animate1){
+        if(animate1){//runs if its on resume to continue the animation until the objects reach their desired
 
             if(hydrogenS1Copy.x >= 870 && hydrogenS1Copy.y >= 320 && hydrogenS2Copy.x >= 870 && hydrogenS2Copy.y <= 480){
                 chlorineS1Copy.moveUpSequence(980,320,200);
@@ -784,9 +788,9 @@ function animate(){
                 hydrogenS1Copy.moveUpSequence(870,320,200);
                 hydrogenS2Copy.moveDownSequence(870,480,600);
             }
-            if(hydrogenS1Copy.x >= 870 && hydrogenS1Copy.y >= 320) hydrogenS1Copy.draw();//up
+            if(hydrogenS1Copy.x >= 870 && hydrogenS1Copy.y >= 320) hydrogenS1Copy.draw();
             if(chlorineS1Copy.x >= 980 && chlorineS1Copy.y >= 320) chlorineS1Copy.draw();
-            if(hydrogenS2Copy.x >= 870 && hydrogenS2Copy.y <= 480) hydrogenS2Copy.draw();//down
+            if(hydrogenS2Copy.x >= 870 && hydrogenS2Copy.y <= 480) hydrogenS2Copy.draw();
             if(chlorineS2Copy.x >= 980 && chlorineS2Copy.y <= 480) chlorineS2Copy.draw();
 
             hydrogenS1.draw();
@@ -794,7 +798,7 @@ function animate(){
             chlorineS1.draw();
             chlorineS2.draw();
         }
-        else{
+        else{//continues to draw the paused images in their current location
             hydrogenS1.draw();
             hydrogenS2.draw(); 
             chlorineS1.draw();
@@ -808,7 +812,7 @@ function animate(){
         if(hydrogenS1Copy.x >= 870 && hydrogenS1Copy.y >= 320 && 
             chlorineS1Copy.x >= 980 && chlorineS1Copy.y >= 320 && 
             hydrogenS2Copy.x >= 870 && hydrogenS2Copy.y <= 480 && 
-            chlorineS2Copy.x >= 980 && chlorineS2Copy.y <= 480){
+            chlorineS2Copy.x >= 980 && chlorineS2Copy.y <= 480){//when the animation is done and the objects are in their desired locations
                 ctx.fillStyle = "black";
                 ctx.font = "50px serif";
                 ctx.textAlign = "center";
@@ -819,7 +823,7 @@ function animate(){
                 animate1=2;
         }
 
-        if(help1){
+        if(help1){//opening up the help screen for them to view the specific explanation
             drawHelp("Synthesis Explanation");
             ctx.fillText("Synthesis Reaction is when Multiple reactants create one product.",width/2,200);
             ctx.fillText("Metal + Nonmetal -> Ionic Compound",width/2,250);
@@ -833,7 +837,7 @@ function animate(){
         }
        
     }
-    else if(sceneNo == 2){
+    else if(sceneNo == 2){//runs if its on resume to continue the animation until the objects reach their desired
         drawSim(animate2,"Decomposition Reaction");
         
         ctx.drawImage(arrow, 450, 310);
@@ -865,7 +869,7 @@ function animate(){
             oxygenD1.draw();
             oxygenD2.draw();
         }
-        else{
+        else{//continues to draw the paused images in their current location
             hydrogenD1.draw();
             hydrogenD2.draw();
             hydrogenD3.draw();
@@ -886,7 +890,7 @@ function animate(){
             hydrogenD3Copy.x >= 1000 && hydrogenD3Copy.y <= 440 && 
             hydrogenD4Copy.x >= 1060 && hydrogenD4Copy.y <= 440 && 
             oxygenD1Copy.x >= 780 && oxygenD1Copy.y >= 340 && 
-            oxygenD2Copy.x >= 780 && oxygenD2Copy.y <= 440){
+            oxygenD2Copy.x >= 780 && oxygenD2Copy.y <= 440){//when the animation is done and the objects are in their desired locations
                 ctx.fillStyle = "black";
                 ctx.font = "50px serif";
                 ctx.textAlign = "center";
@@ -897,7 +901,7 @@ function animate(){
                 animate2 = 2;
         }
 
-        if(help2){
+        if(help2){//opening up the help screen for them to view the specific explanation
             drawHelp("Decomposition Explanation");
             ctx.fillText("Decomposition Reaction is when One reactant splits into multiple products.",width/2,200);
             ctx.fillText("Ionic Compound -> Metal + Nonmetal",width/2,250);
@@ -910,14 +914,14 @@ function animate(){
         }
 
     }
-    else if(sceneNo == 3){
+    else if(sceneNo == 3){//runs if its on resume to continue the animation until the objects reach their desired
         drawSim(animate3,"Single Displacement");
 
         ctx.drawImage(arrowSmall, 570, 330);
         ctx.drawImage(plus, 300, 360);
         ctx.drawImage(plus, 1000, 360);
 
-        if(animate3 == 1){          
+        if(animate3 == 1){//runs if its on resume to continue the animation until the objects reach their desired          
             if(chlorineSDCopy.y >= 380 && chlorineSDCopy.x >= 900){
                 sodiumSDCopy.moveUpSequence(1125,380,220);
                 potassiumSDCopy.moveDownSequence(790,380,540);
@@ -936,7 +940,7 @@ function animate(){
             chlorineSD.draw();
 
         }
-        else{
+        else{//continues to draw the paused images in their current location
             potassiumSD.draw();
             sodiumSD.draw(); 
             chlorineSD.draw();
@@ -947,7 +951,7 @@ function animate(){
 
         if(chlorineSDCopy.y >= 380 && chlorineSDCopy.x >= 900 && 
             potassiumSDCopy.y <= 380 && potassiumSDCopy.x >= 790 && 
-            sodiumSDCopy.y >= 380 && sodiumSDCopy.x >= 1125){
+            sodiumSDCopy.y >= 380 && sodiumSDCopy.x >= 1125){//when the animation is done and the objects are in their desired locations
                 ctx.fillStyle = "black";
                 ctx.font = "50px serif";
                 ctx.textAlign = "center";
@@ -960,7 +964,7 @@ function animate(){
                 animate3 = 2;
         }   
 
-        if(help3){
+        if(help3){//opening up the help screen for them to view the specific explanation
             drawHelp("Single Displacement");
             ctx.fillText("In this Reaction One element displaces another element in a compound.",width/2,200);
             ctx.fillText("only ions of the same type can switch",width/2,250);
@@ -975,7 +979,7 @@ function animate(){
         }
 
     }
-    else if(sceneNo == 4){
+    else if(sceneNo == 4){//runs if its on resume to continue the animation until the objects reach their desired
         drawSim(animate4, "Double Displacement");
 
         ctx.drawImage(arrowSmall, 550, 330);
@@ -1003,7 +1007,7 @@ function animate(){
             calciumDD.draw();
             sulfurDD.draw();
         }
-        else{
+        else{//continues to draw the paused images in their current location
             magnesiumDD.draw();
             oxygenDD.draw();
             calciumDD.draw();
@@ -1017,7 +1021,7 @@ function animate(){
         if(oxygenDDCopy.y <= 380 && oxygenDDCopy.x >= 1130 && 
             calciumDDCopy.y <= 380 && calciumDDCopy.x >= 1050 && 
             magnesiumDDCopy.y >= 380 && magnesiumDDCopy.x >= 790 && 
-            sulfurDDCopy.y >= 380 && sulfurDDCopy.x >= 880){
+            sulfurDDCopy.y >= 380 && sulfurDDCopy.x >= 880){//when the animation is done and the objects are in their desired locations
                 ctx.fillStyle = "black";
                 ctx.font = "50px serif";
                 ctx.textAlign = "center";
@@ -1030,7 +1034,7 @@ function animate(){
                 animate4 = 2;
         }
 
-        if(help4){
+        if(help4){//opening up the help screen for them to view the specific explanation
             drawHelp("Double Displacement");
             ctx.fillText("Two aqueous ionic compounds switch places with each other",width/2,200);
             ctx.fillText("Metal switches with a Metal",width/2,250);
@@ -1048,7 +1052,7 @@ function animate(){
         ctx.drawImage(plus, 250, 360);
         ctx.drawImage(plus, 850, 360);
 
-        if(animate5 == 1){
+        if(animate5 == 1){//runs if its on resume to continue the animation until the objects reach their desired
             if(carbonCCopy.y >= 380 && carbonCCopy.x >= 750 && oxygenC2Copy.y >= 380 && oxygenC2Copy.x >= 980 && oxygenC4Copy.y <= 380 && oxygenC4Copy.x >= 1100){
                 oxygenC1Copy.moveUpSequence(750,295,220);
                 oxygenC3Copy.moveDownSequence(750,465,540);
@@ -1083,7 +1087,7 @@ function animate(){
             oxygenC3.draw();
             oxygenC4.draw();
         }
-        else{
+        else{//continues to draw the paused images in their current location
             carbonC.draw();
             hydrogenC1.draw();
             hydrogenC2.draw();
@@ -1113,7 +1117,7 @@ function animate(){
             oxygenC3Copy.y <= 465 && oxygenC3Copy.x >= 750 &&
             hydrogenC3Copy.y <= 445 && hydrogenC3Copy.x >= 980 &&
             hydrogenC4Copy.y <= 445 && hydrogenC4Copy.x >= 1100 &&
-            oxygenC4Copy.y <= 380 && oxygenC4Copy.x >= 1100){
+            oxygenC4Copy.y <= 380 && oxygenC4Copy.x >= 1100){//when the animation is done and the objects are in their desired locations
                 ctx.fillStyle = "black";
                 ctx.font = "50px serif";
                 ctx.textAlign = "center";
@@ -1126,7 +1130,7 @@ function animate(){
                 animate5 = 2;
         }
 
-        if(help5){
+        if(help5){//opening up the help screen for them to view the specific explanation
             drawHelp("Combustion Explanation");
             ctx.fillText("Combustion reactions occur whenever oxygen is a reactant.",width/2,150);
             ctx.fillText("Energy is also released in the form of heat or light.",width/2,200);
@@ -1141,7 +1145,7 @@ function animate(){
         }
 
     }
-    else if(sceneNo == 6){
+    else if(sceneNo == 6){//runs if its on resume to continue the animation until the objects reach their desired
         drawSim(animate6,"Neutralization Reaction");
 
         ctx.drawImage(arrowSmall, 510, 330);
@@ -1174,7 +1178,7 @@ function animate(){
             oxygenA.draw();
             hydrogenA2.draw();
         }
-        else{
+        else{//continues to draw the paused images in their current location
             hydrogenA1.draw();
             chlorineA.draw();
             sodiumA.draw();
@@ -1193,7 +1197,7 @@ function animate(){
             hydrogenA1Copy.y >= 300 && hydrogenA1Copy.x >= 1075 &&
             oxygenACopy.y >= 380 && oxygenACopy.x >= 1075 &&
             sodiumACopy.y <= 380 && sodiumACopy.x >= 840 &&
-            hydrogenA2Copy.y <= 460 && hydrogenA2Copy.x >= 1075){
+            hydrogenA2Copy.y <= 460 && hydrogenA2Copy.x >= 1075){//when the animation is done and the objects are in their desired locations
                 ctx.fillStyle = "black";
                 ctx.font = "50px serif";
                 ctx.textAlign = "center";
@@ -1207,7 +1211,7 @@ function animate(){
                 animate6 = 2;
         }
 
-        if(help6){
+        if(help6){//opening up the help screen for them to view the specific explanation
             drawHelp("Neutralization Explanation");
             ctx.font = "18px ChalkFont";
             ctx.fillText("Neutralization is a chemical reaction between an acid and a base",width/2,150);
@@ -1225,4 +1229,5 @@ function animate(){
 
 }
 
+//calling the animate method
 animate();
