@@ -622,7 +622,7 @@ class Molecule{
         }
     }
 
-    contains the moving down animation
+    //contains the moving down animation
     moveDownSequence(targetX, targetY, maxY){
         if(this.y < maxY && this.x < targetX){
             this.moveDown();
