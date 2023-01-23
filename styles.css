@@ -8,6 +8,7 @@
   src: url(fonts/ChalkFont.ttf);
 }
 
+/*stores variable for colours*/
 :root{
   --light: #f7faf9;
   --black: #314455;
@@ -52,6 +53,8 @@ canvas {
   left: 50px;
 }
 
+
+/*CSS for NavBar*/
 .navbar-brand{
   color: var(--dark);
 
@@ -87,6 +90,7 @@ canvas {
   background-color: white;
 }
 
+/*CSS for the footer of the pages*/
 footer {
   background: linear-gradient(0deg, var(--blue), var(--green));
   height: auto;
@@ -108,6 +112,7 @@ footer {
   font-size: 14px;
 }
 
+/*The link to the github*/
 .socials{
   list-style: none;
   display: flex;
@@ -137,6 +142,7 @@ footer {
 }
 
 
+/*The different webpages offered by ChemSim*/
 .module-list{
   height:80%;
   display: grid;
@@ -205,6 +211,8 @@ footer {
   transition: .6s ease;
 }
 
+
+/*CSS for the about page*/
 #about-content {
   height: auto;
   color: black;
@@ -225,6 +233,7 @@ footer {
   width: 1000px;
   justify-content: center;
 }
+
 
 #about-title {
   margin-top: 0;
