@@ -1,211 +1,49 @@
 {
 	"WHIMIS": [
 		{
-			"title": "Flammable Materials",
-			"image": "",
-			"desctipion": ""
+			"title": "Flame",
+			"image": "assets/flammable.png",
+			"desctipion": "Flammable Materials: Catches fire spontaneously if exposed to air, water, sparks, flame, or friction (e.g. sodium). Keep material away from flames."
 		},
 		{
-			"title": "Oxidizing Materials",
-			"image": "",
-			"desctipion": ""
+			"title": "Flame Over Circle",
+			"image": "assets/oxidizing.png",
+			"desctipion": "Oxidizing Materials: "
 		},
 		{
-			"title": "Gases Under Pressure",
-			"image": "",
-			"desctipion": ""
+			"title": "Gas Cylinder",
+			"image": "assets/cylinder.png",
+			"desctipion": "Gases Under Pressure: May explode if heated, punctured, or dropped (e.g. aerosol cans, fire extinguishers, helium for balloons). Keep away from heat."
 		},
 		{
-			"title": "Highly Reactive Materials",
-			"image": "",
-			"desctipion": ""
+			"title": "Explosion",
+			"image": "assets/explosion.png",
+			"desctipion": "Highly Reactice Materials: Risk of explosion due to fire, shock, friction, heat or puncture (e.g. sodium, organic peroxides). Use extreme caution and follow handling instructions."
 		},
 		{
-			"title": "Corrosive Materials",
-			"image": "",
-			"desctipion": ""
+			"title": "Corrosion",
+			"image": "assets/corrosion.png",
+			"desctipion": "Corrosive Materials: Causes severe skin burns or eye damage (e.g. sulfuric acid). Wear protective clothing."
 		},
 		{
-			"title": "Health Hazards",
-			"image": "",
-			"desctipion": ""
+			"title": "Health Hazard",
+			"image": "assets/hazard.png",
+			"desctipion": "Cause serious health effects: allergic reactions, cancer, birth defects, damaged organs, harm fertility or unborn children (e.g. ethidium bromide). Avoid prolonged exposure, wear protective equipment."
 		},
 		{
-			"title": "Acute Toxic Materials",
-			"image": "",
-			"desctipion": ""
+			"title": "Skull & Crossbones",
+			"image": "assets/skull.png",
+			"desctipion": "Acute Toxicity: Cause death or toxicity with short exposure to even small amounts if inhaled, swallowed or contacted through skin (e.g. carbon monoxide, cyanide). Use extreme caution."
 		},
 		{
-			"title": "Harmful Materials",
-			"image": "",
-			"desctipion": ""
+			"title": "Exclamation Mark",
+			"image": "assets/exclamation.png",
+			"desctipion": "Harmful Materials: Cause less serious health effects (e.g. carbon tetrafluoride, asbestos). Can be fatal in large quantities. May cause damage the ozone layer."
 		},
 		{
-			"title": "Biohazardous Infectious Materials",
-			"image": "",
-			"desctipion": ""
-		},
-	],
-	"Equipment": [
-		{
-			"title": "Beaker",
-			"image": "",
-			"desctipion": ""
-		},
-		{
-			"title": "Beaker Tongs",
-			"image": "",
-			"desctipion": ""
-		},
-		{
-			"title": "Bunsen Burner",
-			"image": "",
-			"desctipion": ""
-		},
-		{
-			"title": "Burette",
-			"image": "",
-			"desctipion": ""
-		},
-		{
-			"title": "Clay Triangle",
-			"image": "",
-			"desctipion": ""
-		},
-		{
-			"title": "Crucible",
-			"image": "",
-			"desctipion": ""
-		},
-		{
-			"title": "Crucible Tongs",
-			"image": "",
-			"desctipion": ""
-		},
-		{
-			"title": "Electronic Scale",
-			"image": "",
-			"desctipion": ""
-		},
-		{
-			"title": "Erlenmeyer Flask",
-			"image": "",
-			"desctipion": ""
-		},
-		{
-			"title": "Evaporating Dish",
-			"image": "",
-			"desctipion": ""
-		},
-		{
-			"title": "Eyedropper",
-			"image": "",
-			"desctipion": ""
-		},
-		{
-			"title": "Flint Lighter",
-			"image": "",
-			"desctipion": ""
-		},
-		{
-			"title": "Forceps (tweezers)",
-			"image": "",
-			"desctipion": ""
-		},
-		{
-			"title": "Funnel",
-			"image": "",
-			"desctipion": ""
-		},
-		{
-			"title": "Graduated Cylinder",
-			"image": "",
-			"desctipion": ""
-		},
-		{
-			"title": "Hot Plate",
-			"image": "",
-			"desctipion": ""
-		},
-		{
-			"title": "Mortor and Pestle",
-			"image": "",
-			"desctipion": ""
-		},
-		{
-			"title": "Retort Stand",
-			"image": "",
-			"desctipion": ""
-		},
-		{
-			"title": "Ring Clamp",
-			"image": "",
-			"desctipion": ""
-		},
-		{
-			"title": "Rubber Stopper",
-			"image": "",
-			"desctipion": ""
-		},
-		{
-			"title": "Scoopula",
-			"image": "",
-			"desctipion": ""
-		},
-		{
-			"title": "Spot Plate",
-			"image": "",
-			"desctipion": ""
-		},
-		{
-			"title": "Stirring Rod",
-			"image": "",
-			"desctipion": ""
-		},
-		{
-			"title": "Test Tube",
-			"image": "",
-			"desctipion": ""
-		},
-		{
-			"title": "Test Tube Brush",
-			"image": "",
-			"desctipion": ""
-		},
-		{
-			"title": "Test Tube Holder",
-			"image": "",
-			"desctipion": ""
-		},
-		{
-			"title": "Test Tube Rack",
-			"image": "",
-			"desctipion": ""
-		},
-		{
-			"title": "Triple Beam Balance",
-			"image": "",
-			"desctipion": ""
-		},
-		{
-			"title": "Utility Clamp",
-			"image": "",
-			"desctipion": ""
-		},
-		{
-			"title": "Volumetric Flask",
-			"image": "",
-			"desctipion": ""
-		},
-		{
-			"title": "Watch Glass",
-			"image": "",
-			"desctipion": ""
-		},
-		{
-			"title": "Wire Gauze",
-			"image": "",
-			"desctipion": ""
+			"title": "Biohazard",
+			"image": "assets/biohazard.png",
+			"desctipion": "Organisms or toxins that cause diseases in people or animals resulting in illness or death (e.g. bacteria. nuclear waste). Handle with caution and follow instructions carefully."
 		},
 	]
 }
