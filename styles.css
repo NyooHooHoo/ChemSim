@@ -285,39 +285,38 @@ footer {
   width: 300px;
 }
 
-
-.container {
+/*CSS for the lab safety page, for the table and images*/
+.table-bordered {
   margin-top: 50px;
-  display: flex;
-  align-items: center; 
-  justify-content: center;
-  border: 1px solid black; 
-  height: 600;
-  width: 70%;
+  border: 1px solid black;
+  width: 60%;
+  height: 800px;
   margin: 0 auto;
-  border-top: 1px solid black;
-  border-bottom: 1px solid black;
+  text-align: center;
+  padding-bottom: 50px;
 }
-.col1 {
-  width: 30%; 
-  padding: 10px;
+.table-bordered td {
   border-right: 1px solid black;
-}
-.col2 {
-  width: 70%; 
-  padding: 10px;
-  border-left: 1px solid black; 
-}
-.row {
-  display: flex; 
-  align-items: center;
-  justify-content: center;
-  height: 10%;
   border-bottom: 1px solid black;
-  margin-bottom: 10px;
+  width: 50%;
+  padding: 20px 20px 20px 20px;
 }
-.row:last-child {
+
+.table-bordered tr:last-child td {
   border-bottom: none;
+}
+
+.table-bordered p {
+  font-size: 20px;
+
+}
+
+.whmis-title h1{
+  justify-content: center;
+  text-align: center;
+  font-size: 50px;
+  font-weight: 700;
+  padding: 50px 50px 50px 50px;
 }
 
 /*Author: Diyorbek Olimov, Copied code for bubble animation in index*/

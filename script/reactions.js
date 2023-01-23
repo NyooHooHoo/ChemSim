@@ -1,17 +1,12 @@
+//Creating the canvas and context
 var canvas = document.getElementById("reaction-simulation");
 if (canvas.getContext) var ctx = canvas.getContext("2d"); else alert("Canvas element is not available");
 
+//height and width of canvas
 var width = canvas.width;
 var height = canvas.height;
 
-var synCol = "white";
-var decCol = "white";
-var sDisCol = "white";
-var dDisCol = "white";
-var comCol = "white";
-var acidCol = "white";
-
-
+//
 var sceneNo = 0;
 
 
@@ -737,6 +732,15 @@ let chlorineACopy = new Molecule(165, 380, 50, "Cl", "rgb(158, 249, 255)");
 let sodiumACopy = new Molecule(380, 390, 60, "Na", "rgb(245, 198, 137)");
 let oxygenACopy = new Molecule(435, 300, 45, "O", "rgb(216, 125, 255)");
 let hydrogenA2Copy = new Molecule(435, 467, 35, "H", "rgb(209, 250, 152)");
+
+
+//Colour variables to change for the buttons
+var synCol = "white";
+var decCol = "white";
+var sDisCol = "white";
+var dDisCol = "white";
+var comCol = "white";
+var acidCol = "white";
 
 function animate(){
     window.requestAnimationFrame(animate);
