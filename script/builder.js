@@ -135,14 +135,14 @@ canvas.addEventListener("click", function () {
 								break displayName;
 							}
 						}
-						// Fetch GET call to access Chemical Identifier Resolver API through requesting a URL with SMILES structure
-						fetch(`https://cactus.nci.nih.gov/chemical/structure/${SMILES.str}/iupac_name`) // Use template strings to insert SMILES string into URL
-							.then(manageErrors)
-							.then(function(response) {
-								response.text().then((data) => moleculeName = data.toLowerCase()) // Save text response as molecule name to display
-							}).catch(function(error) {
-								moleculeName = 'error: molecule does not exist.';
-							});
+						fetch(`https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/smiles/${SMILES.str}/property/IUPACName/JSON`)
+							.then(response => response.json())
+							.then(data => {
+						    	moleculeName = data.PropertyTable.Properties[0].IUPACName;
+						  	})
+						  	.catch(error => {
+						    	moleculeName = 'error: molecule does not exist.';
+						  	});
 					}
 				}
 				else {
